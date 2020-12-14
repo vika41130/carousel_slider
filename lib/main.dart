@@ -34,7 +34,9 @@ class MyApp extends StatelessWidget {
                           // fit: FlexFit.tight,
                           child: Container(
                             padding: EdgeInsets.only(top: 20, bottom: 20),
-                            child: CarouselSliderWidget()
+                            child: CarouselSliderWidget(
+                              width: 650,
+                            )
                           ),
                         ),
                       ],
