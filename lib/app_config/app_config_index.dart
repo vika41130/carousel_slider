@@ -1,0 +1,1 @@
+export './assets_config.dart';
