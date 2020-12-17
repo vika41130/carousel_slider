@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,22 +30,16 @@ class MyApp extends StatelessWidget {
                         Flexible(
                           // flex: 1,
                           // fit: FlexFit.tight,
-                          child: DottedBorder(
-                            color: Colors.black,
-                            strokeWidth: 2,
-                            // padding: EdgeInsets.all(10),
-                            // strokeCap: StrokeCap.square,
-                            dashPattern: const <double>[10, 6],
-                            // borderType: BorderType.Rect,
-                            child: Container(
-                              padding: EdgeInsets.only(top: 20, bottom: 20),
-                              child: Text(
-                                'Work Remote',
-                                style: TextStyle(
-                                  fontSize: 50,
-                                ),
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20, bottom: 20),
+                            child: Text(
+                              'Development',
+                              style: TextStyle(
+                                fontSize: 50,
                               ),
-                              decoration: BoxDecoration(),
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border(bottom: BorderSide(color: Colors.black, width: 2),),
                             ),
                           ),
                         ),
