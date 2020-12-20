@@ -14,11 +14,9 @@ class _BlankTabPageState extends State<BlankTabPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Blank'),
-      ),
-      body: Center(
+    return Container(
+      color: Colors.white,
+      child: Center(
         child: Text(
           'Blank',
           style: TextStyle(fontSize: 30),

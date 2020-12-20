@@ -24,28 +24,23 @@ class _ProductState extends State<ProductTabPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Product'),
-      ),
-      body: Container(
-          height: MediaQuery.of(context).size.height,
-          child: ListView.separated(
-            shrinkWrap: true,
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              return Container(
-                // height: 100,
-                child: ProductItem(
-                  item: list[index],
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return Divider();
-            },
-          )),
-    );
+    return Container(
+        color: Colors.white,
+        height: MediaQuery.of(context).size.height,
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return Container(
+              child: ProductItem(
+                item: list[index],
+              ),
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Divider();
+          },
+        ));
   }
 
   @override
