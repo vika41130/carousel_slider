@@ -104,7 +104,7 @@ class _DialogViewState extends State<DialogView> {
   List<Widget> buildAction() {
     final ls = <Widget>[
       Expanded(
-        child: Container(
+        child: SizedBox(
           child: FlatButton(
             child: Text('OK'),
             onPressed: () {
@@ -118,7 +118,7 @@ class _DialogViewState extends State<DialogView> {
     if (widget.hasCancel) {
       ls.insert(
           0,
-          Container(
+          SizedBox(
             width: widget.width / 2,
             child: FlatButton(
               color: Colors.blueGrey,
