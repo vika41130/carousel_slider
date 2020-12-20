@@ -54,18 +54,36 @@ class _DialogViewState extends State<DialogView> {
         height: widget.height,
         child: Column(
           children: [
-            Container(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+            Stack(
               children: [
-                Text(
-                  '${widget.title}',
-                  style: TextStyle(fontSize: 20),
+                Container(
+                  width: widget.width,
+                  decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(width: 0.5)),
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${widget.title}',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
                 ),
-                Divider(),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    width: 28,
+                    child: FlatButton(
+                      padding: EdgeInsets.zero,
+                      child: Icon(Icons.close),
+                      onPressed: () {
+                        cancel();
+                      },
+                    ),
+                  ),
+                )
               ],
-            )),
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Center(
