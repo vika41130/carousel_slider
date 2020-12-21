@@ -25,16 +25,25 @@ class _ProductState extends State<ProductTabPage>
   @override
   Widget build(BuildContext context) {
     return Container(
+        width: 300,
         color: Colors.white,
         height: MediaQuery.of(context).size.height,
         child: ListView.separated(
           shrinkWrap: true,
           itemCount: list.length,
           itemBuilder: (context, index) {
-            return Container(
-              child: ProductItem(
-                item: list[index],
-              ),
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1.5, color: Colors.blue),
+                  ),
+                  child: ProductItem(
+                    item: list[index],
+                  ),
+                ),
+              ],
             );
           },
           separatorBuilder: (context, index) {

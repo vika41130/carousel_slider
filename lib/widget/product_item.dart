@@ -42,66 +42,65 @@ class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 0, right: 10, bottom: 0, left: 0),
-      child: Center(
-        child: Column(
-          children: [
-            Text(
-              '${widget.item.name}',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+      padding: EdgeInsets.only(top: 0, right: 10, bottom: 10, left: 10),
+      child: Column(
+        children: [
+          Text(
+            '${widget.item.name}',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-            SizedBox(height: 10,),
-            Image(
-              image: AssetImage(widget.item.image),
-              // width: 250,
-              height: 150,
+          ),
+          SizedBox(height: 10,),
+          Image(
+            image: AssetImage(widget.item.image),
+            // width: 250,
+            height: 150,
+          ),
+          SizedBox(height: 10,),
+          Text(
+            '${widget.item.price} USD',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
             ),
-            SizedBox(height: 10,),
-            Text(
-              '${widget.item.price} USD',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RaisedButton(
-                  child: Text(
-                    'New',
-                    style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  ),
-                  onPressed: () {
-                    alert();
-                  },
+          ),
+          SizedBox(height: 10,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RaisedButton(
+                color: Colors.blue,
+                child: Text(
+                  'New',
+                  style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(width: 10,),
-                RaisedButton(
-                  child: Text(
-                    'Buy',
-                    style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  ),
-                  onPressed: () {
-                    confirm();
-                  },
                 ),
-              ],
-            ),
-            SizedBox(height: 10,),
-          ],
-        ),
+                onPressed: () {
+                  alert();
+                },
+              ),
+              SizedBox(width: 10,),
+              RaisedButton(
+                color: Colors.blue,
+                child: Text(
+                  'Buy',
+                  style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+                ),
+                onPressed: () {
+                  confirm();
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

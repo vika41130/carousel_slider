@@ -16,7 +16,7 @@ class ProductService {
       list.add(ProductModel(
         id: i.toString(),
         name: 'BMW - X' + i.toString(),
-        image: 'assets/images/bmw/bg_bmw.jpg',
+        image: 'assets/images/bmw/bmw_logo.jpg',
         price: 10000 + i * 100.0,
       ));
     }

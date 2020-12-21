@@ -48,55 +48,53 @@ class _DialogViewState extends State<DialogView> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-        width: widget.width,
-        height: widget.height,
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  width: widget.width,
-                  decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.5)),
-                  ),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      '${widget.title}',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
+    return Container(
+      width: widget.width,
+      height: widget.height,
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: widget.width,
+                decoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(width: 0.5)),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                    width: 28,
-                    child: FlatButton(
-                      padding: EdgeInsets.zero,
-                      child: Icon(Icons.close),
-                      onPressed: () {
-                        cancel();
-                      },
-                    ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '${widget.title}',
+                    style: TextStyle(fontSize: 20),
                   ),
-                )
-              ],
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Center(
-                  child: Text('Message'),
                 ),
               ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                  width: 28,
+                  child: FlatButton(
+                    padding: EdgeInsets.zero,
+                    child: Icon(Icons.close),
+                    onPressed: () {
+                      cancel();
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Center(
+                child: Text('Message'),
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: buildAction(),
-            )
-          ],
-        ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: buildAction(),
+          )
+        ],
       ),
     );
   }
@@ -118,14 +116,15 @@ class _DialogViewState extends State<DialogView> {
     if (widget.hasCancel) {
       ls.insert(
           0,
-          SizedBox(
-            width: widget.width / 2,
-            child: FlatButton(
-              color: Colors.blueGrey,
-              child: Text('Cancel'),
-              onPressed: () {
-                confirm();
-              },
+          Expanded(
+            child: SizedBox(
+              child: FlatButton(
+                color: Colors.blueGrey,
+                child: Text('Cancel'),
+                onPressed: () {
+                  confirm();
+                },
+              ),
             ),
           ));
     }
