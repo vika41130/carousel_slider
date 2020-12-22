@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lutoi/routing_constants.dart';
+import 'package:lutoi/routing/routing_constants.dart';
 import 'package:lutoi/tab_page/another_tab_page.dart';
 import 'package:lutoi/tab_page/home_tab_page.dart';
 import 'package:lutoi/tab_page/product_tab_page.dart';

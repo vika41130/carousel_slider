@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lutoi/home_container.dart';
-import 'package:lutoi/router.dart' as router;
-import 'package:lutoi/routing_constants.dart';
+import 'package:lutoi/routing/router.dart' as router;
+import 'package:lutoi/routing/routing_constants.dart';
 
 void main() {
   runApp(MyApp());

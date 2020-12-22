@@ -3,6 +3,7 @@ import 'package:lutoi/model/bottom_tab_bar.model.dart';
 import 'package:lutoi/tab_page/home_tab_page.dart';
 import 'package:lutoi/tab_page/another_tab_page.dart';
 import 'package:lutoi/tab_page/product_tab_page.dart';
+import 'package:lutoi/widget/search_form.dart';
 
 class HomeContainer extends StatefulWidget {
   HomeContainer({Key key}) : super(key: key);
@@ -16,6 +17,12 @@ class _HomeContainerState extends State<HomeContainer> {
   List<Widget> pagesList;
   List<BottomTabBarModel> bottomTabBarList = [];
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  List<Widget> mainActionsList;
+  List<Widget> searchModeActionsList;
+  List<Widget> realActionsList;
+  bool showSearchModeActionsList = false;
+  Widget searchButton;
+  Widget searchForm;
 
   @override
   void initState() {
@@ -25,7 +32,119 @@ class _HomeContainerState extends State<HomeContainer> {
       ProductTabPage(),
       BlankTabPage(),
     ];
+    createSearchButton();
+    createSearchForm();
+    createActionsList();
+    realActionsList = mainActionsList;
+    createSearchModeActionsList();
     createBottomTabBarDataList();
+  }
+
+  void createSearchForm() {
+    searchForm = Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SearchForm(close: () {
+        onSearchClose();
+      }),
+    );
+  }
+
+  void createSearchButton() {
+    searchButton = FlatButton(
+      child: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: Center(child: Icon(Icons.search)),
+      ),
+      onPressed: () {
+        onSearchButtonClick();
+      },
+    );
+  }
+
+  void onSearchClose() {
+    setState(() {
+      realActionsList = mainActionsList;
+    });
+  }
+
+  void onSearchButtonClick() {
+    setState(() {
+      realActionsList = searchModeActionsList;
+    });
+  }
+
+  void createSearchModeActionsList() {
+    searchModeActionsList = [
+      FlatButton(
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: Icon(Icons.car_repair),
+        ),
+        onPressed: () {
+        },
+      ),
+      Spacer(),
+      searchForm,
+    ];
+  }
+
+  void createActionsList() {
+    mainActionsList = [
+      FlatButton(
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: Icon(Icons.car_repair),
+        ),
+        onPressed: () {
+          // Navigator.pushNamed(context, RoutingConfig.PRODUCT);
+          // setState(() {
+          //   tabIndex = 1;
+          // });
+        },
+      ),
+      FlatButton(
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: Center(child: Text('Resource')),
+        ),
+        onPressed: () {
+          // Navigator.pushNamed(context, RoutingConfig.PRODUCT);
+          setState(() {
+            tabIndex = 1;
+          });
+        },
+      ),
+      FlatButton(
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: Center(child: Text('Support')),
+        ),
+        onPressed: () {},
+      ),
+      FlatButton(
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: Center(child: Text('Request Board Admin')),
+        ),
+        onPressed: () {},
+      ),
+      Spacer(),
+      searchButton,
+      FlatButton(
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: Center(child: Icon(Icons.person)),
+        ),
+        onPressed: () {},
+      ),
+      FlatButton(
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: Center(child: Icon(Icons.card_travel)),
+        ),
+        onPressed: () {},
+      ),
+    ];
   }
 
   void createBottomTabBarDataList() {
@@ -40,73 +159,7 @@ class _HomeContainerState extends State<HomeContainer> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        actions: [
-          FlatButton(
-            child: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Icon(Icons.car_repair),
-            ),
-            onPressed: () {
-              // Navigator.pushNamed(context, RoutingConfig.PRODUCT);
-              // setState(() {
-              //   tabIndex = 1;
-              // });
-            },
-          ),
-          FlatButton(
-            child: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Center(child: Text('Resource')),
-            ),
-            onPressed: () {
-              // Navigator.pushNamed(context, RoutingConfig.PRODUCT);
-              setState(() {
-                tabIndex = 1;
-              });
-            },
-          ),
-          FlatButton(
-            child: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Center(child: Text('Support')),
-            ),
-            onPressed: () {
-            },
-          ),
-          FlatButton(
-            child: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Center(child: Text('Request Board Admin')),
-            ),
-            onPressed: () {
-            },
-          ),
-          Spacer(),
-          FlatButton(
-            child: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Center(child: Icon(Icons.search)),
-            ),
-            onPressed: () {
-            },
-          ),
-          FlatButton(
-            child: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Center(child: Icon(Icons.person)),
-            ),
-            onPressed: () {
-            },
-          ),
-          FlatButton(
-            child: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Center(child: Icon(Icons.card_travel)),
-            ),
-            onPressed: () {
-            },
-          ),
-        ],
+        actions: realActionsList,
       ),
       body: pagesList[tabIndex],
       bottomNavigationBar: BottomNavigationBar(

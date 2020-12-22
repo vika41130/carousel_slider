@@ -22,7 +22,7 @@ class _HomeTabPageState extends State<HomeTabPage>
       height: double.infinity,
       color: Colors.white,
       child: Center(
-        child: Text('Home'),
+        child: Text('Home', style: TextStyle(fontSize: 30),),
       ),
     );
   }
