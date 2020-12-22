@@ -21,17 +21,8 @@ class _HomeTabPageState extends State<HomeTabPage>
       width: double.infinity,
       height: double.infinity,
       color: Colors.white,
-      child: SizedBox(
-        width: 100,
-        height: 100,
-        child: RaisedButton(
-          child: Text('Open Menu'),
-          onPressed: () {
-            // widget.scaffoldKey.currentState.openDrawer();
-            Scaffold.of(context).openDrawer();
-            // Scaffold.of(context).openEndDrawer();
-          },
-        ),
+      child: Center(
+        child: Text('Home'),
       ),
     );
   }

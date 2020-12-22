@@ -39,50 +39,74 @@ class _HomeContainerState extends State<HomeContainer> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('${bottomTabBarList[tabIndex].label}'),
-      ),
-      // drawer: Drawer(
-      drawer: Container(
-        width: 150,
-        color: Colors.white,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Menu'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
+        backgroundColor: Colors.white,
+        actions: [
+          FlatButton(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Icon(Icons.car_repair),
             ),
-            ListTile(
-              title: Text('${bottomTabBarList[0].label}'),
-              onTap: () {
-                setState(() {
-                  tabIndex = 0;
-                });
-                Navigator.of(context).pop();
-              },
+            onPressed: () {
+              // Navigator.pushNamed(context, RoutingConfig.PRODUCT);
+              // setState(() {
+              //   tabIndex = 1;
+              // });
+            },
+          ),
+          FlatButton(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Center(child: Text('Resource')),
             ),
-            ListTile(
-              title: Text('${bottomTabBarList[1].label}'),
-              onTap: () {
-                setState(() {
-                  tabIndex = 1;
-                });
-                Navigator.of(context).pop();
-              },
+            onPressed: () {
+              // Navigator.pushNamed(context, RoutingConfig.PRODUCT);
+              setState(() {
+                tabIndex = 1;
+              });
+            },
+          ),
+          FlatButton(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Center(child: Text('Support')),
             ),
-            ListTile(
-              title: Text('${bottomTabBarList[2].label}'),
-              onTap: () {
-                setState(() {
-                  tabIndex = 2;
-                });
-                Navigator.of(context).pop();
-              },
+            onPressed: () {
+            },
+          ),
+          FlatButton(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Center(child: Text('Request Board Admin')),
             ),
-          ],
-        ),
+            onPressed: () {
+            },
+          ),
+          Spacer(),
+          FlatButton(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Center(child: Icon(Icons.search)),
+            ),
+            onPressed: () {
+            },
+          ),
+          FlatButton(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Center(child: Icon(Icons.person)),
+            ),
+            onPressed: () {
+            },
+          ),
+          FlatButton(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Center(child: Icon(Icons.card_travel)),
+            ),
+            onPressed: () {
+            },
+          ),
+        ],
       ),
       body: pagesList[tabIndex],
       bottomNavigationBar: BottomNavigationBar(
