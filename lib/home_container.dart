@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lutoi/model/bottom_tab_bar.model.dart';
+import 'package:lutoi/routing/router.dart';
 import 'package:lutoi/tab_page/home_tab_page.dart';
 import 'package:lutoi/tab_page/another_tab_page.dart';
 import 'package:lutoi/tab_page/product_tab_page.dart';
 import 'package:lutoi/widget/search_form.dart';
+
+import 'custom_icons.dart';
 
 class HomeContainer extends StatefulWidget {
   HomeContainer({Key key}) : super(key: key);
@@ -28,7 +31,7 @@ class _HomeContainerState extends State<HomeContainer> {
   void initState() {
     super.initState();
     pagesList = [
-      HomeTabPage(scaffoldKey: _scaffoldKey),
+      HomeTabPage(),
       ProductTabPage(),
       BlankTabPage(),
     ];
@@ -78,14 +81,22 @@ class _HomeContainerState extends State<HomeContainer> {
       FlatButton(
         child: Padding(
           padding: const EdgeInsets.all(0.0),
-          child: Icon(Icons.car_repair),
+          // child: Icon(Icons.car_repair),
+          child: Image(
+            image: AssetImage('assets/icons/hyundai.jpg'),
+            // width: 250,
+            height: 150,
+          ),
         ),
-        onPressed: () {
-        },
+        onPressed: () {},
       ),
       Spacer(),
       searchForm,
     ];
+  }
+
+  void logout() {
+    Navigator.pushReplacementNamed(context, RoutingConfig.LOGIN);
   }
 
   void createActionsList() {
@@ -93,7 +104,13 @@ class _HomeContainerState extends State<HomeContainer> {
       FlatButton(
         child: Padding(
           padding: const EdgeInsets.all(0.0),
-          child: Icon(Icons.car_repair),
+          // child: Icon(Icons.car_repair),
+          // child: Icon(CustomIcons.hyundai),
+          child: Image(
+            image: AssetImage('assets/icons/hyundai.jpg'),
+            // width: 250,
+            height: 150,
+          ),
         ),
         onPressed: () {
           // Navigator.pushNamed(context, RoutingConfig.PRODUCT);
@@ -130,17 +147,22 @@ class _HomeContainerState extends State<HomeContainer> {
       ),
       Spacer(),
       searchButton,
-      FlatButton(
-        child: Padding(
-          padding: const EdgeInsets.all(0.0),
-          child: Center(child: Icon(Icons.person)),
+      Tooltip(
+        message: 'Profile',
+        child: FlatButton(
+          child: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: Center(child: Icon(Icons.person)),
+          ),
+          onPressed: () {
+            logout();
+          },
         ),
-        onPressed: () {},
       ),
       FlatButton(
         child: Padding(
           padding: const EdgeInsets.all(0.0),
-          child: Center(child: Icon(Icons.card_travel)),
+          child: Center(child: Icon(Icons.shopping_cart)),
         ),
         onPressed: () {},
       ),

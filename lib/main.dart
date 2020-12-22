@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lutoi/home_container.dart';
 import 'package:lutoi/routing/router.dart' as router;
-import 'package:lutoi/routing/routing_constants.dart';
+import 'package:lutoi/routing/router.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: router.generateRoute,
-      initialRoute: RoutingConfig.HOME,
+      initialRoute: RoutingConfig.LOGIN,
       home: HomeContainer(),
     );
   }

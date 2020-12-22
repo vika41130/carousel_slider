@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:lutoi/routing/routing_constants.dart';
+import 'package:lutoi/pages/login.page.dart';
 import 'package:lutoi/tab_page/another_tab_page.dart';
 import 'package:lutoi/tab_page/home_tab_page.dart';
 import 'package:lutoi/tab_page/product_tab_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case RoutingConfig.LOGIN:
+      return MaterialPageRoute(builder: (context) => LoginPage());
     case RoutingConfig.HOME:
       return MaterialPageRoute(builder: (context) => HomeTabPage());
     case RoutingConfig.PRODUCT:
@@ -15,4 +17,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     default:
       return MaterialPageRoute(builder: (context) => HomeTabPage());
   }
+}
+
+class RoutingConfig {
+  static const String LOGIN = '/login';
+  static const String HOME = '/';
+  static const String PRODUCT = 'product';
+  static const String BLANK = 'blank';
 }

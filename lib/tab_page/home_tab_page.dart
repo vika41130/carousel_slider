@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
 class HomeTabPage extends StatefulWidget {
-  GlobalKey<ScaffoldState> scaffoldKey;
-  HomeTabPage({this.scaffoldKey});
   @override
   _HomeTabPageState createState() => _HomeTabPageState();
 }
 
 class _HomeTabPageState extends State<HomeTabPage>
     with AutomaticKeepAliveClientMixin<HomeTabPage> {
-  // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
