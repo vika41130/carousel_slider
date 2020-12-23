@@ -24,8 +24,6 @@ class _HomeContainerState extends State<HomeContainer> {
   List<Widget> searchModeActionsList;
   List<Widget> realActionsList;
   bool showSearchModeActionsList = false;
-  Widget searchButton;
-  Widget searchForm;
 
   @override
   void initState() {
@@ -35,33 +33,10 @@ class _HomeContainerState extends State<HomeContainer> {
       ProductTabPage(),
       BlankTabPage(),
     ];
-    createSearchButton();
-    createSearchForm();
     createActionsList();
     realActionsList = mainActionsList;
     createSearchModeActionsList();
     createBottomTabBarDataList();
-  }
-
-  void createSearchForm() {
-    searchForm = Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SearchForm(close: () {
-        onSearchClose();
-      }),
-    );
-  }
-
-  void createSearchButton() {
-    searchButton = FlatButton(
-      child: Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: Center(child: Icon(Icons.search)),
-      ),
-      onPressed: () {
-        onSearchButtonClick();
-      },
-    );
   }
 
   void onSearchClose() {
@@ -91,7 +66,12 @@ class _HomeContainerState extends State<HomeContainer> {
         onPressed: () {},
       ),
       Spacer(),
-      searchForm,
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SearchForm(close: () {
+          onSearchClose();
+        }),
+      ),
     ];
   }
 
@@ -146,7 +126,15 @@ class _HomeContainerState extends State<HomeContainer> {
         onPressed: () {},
       ),
       Spacer(),
-      searchButton,
+      FlatButton(
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: Center(child: Icon(Icons.search)),
+        ),
+        onPressed: () {
+          onSearchButtonClick();
+        },
+      ),
       Tooltip(
         message: 'Profile',
         child: FlatButton(
