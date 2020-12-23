@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lutoi/model/search.param.model.dart';
+import 'package:lutoi/shared/search_form.shared.dart';
+import 'package:lutoi/state/search.param.state.dart';
 import 'package:lutoi/widget/search_input.dart';
 
 class SearchForm extends StatefulWidget {
@@ -25,6 +28,20 @@ class _SearchFormState extends State<SearchForm> {
   @override
   void initState() {
     super.initState();
+    setData();
+  }
+
+  void onSearch(String value) {
+    print('-------------------------onSearch value: $value');
+    // SearchParamState.shared().setParam(SearchParam(param1: selected1, param2: selected2, param3: value));
+    SearchFormShared.shared().setParam(SearchParam(param1: selected1, param2: selected2, param3: value));
+  }
+
+  void setData() {
+    final SearchParam searchParam = SearchFormShared.shared().getParam();
+    if (searchParam == null) return;
+    selected1 = searchParam.param1;
+    selected2 = searchParam.param2;
   }
 
   @override
@@ -92,7 +109,11 @@ class _SearchFormState extends State<SearchForm> {
           width: 30,
         ),
         SizedBox(
-          child: SearchInput(),
+          child: SearchInput(
+            search: (value) {
+              onSearch(value);
+            },
+          ),
           width: 250,
           height: 30,
         ),
