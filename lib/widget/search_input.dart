@@ -44,6 +44,7 @@ class _StateSearchInput extends State<SearchInput> {
       controller: textFieldcontroller,
       obscureText: false,
       style: style,
+      cursorColor: null,
       decoration: InputDecoration(
         contentPadding: contentPadding,
         hintText: "Search",

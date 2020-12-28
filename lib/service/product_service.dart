@@ -1,4 +1,3 @@
-import 'package:lutoi/model/product_model.dart';
 
 class ProductService {
   static ProductService _sInstance;
@@ -10,15 +9,11 @@ class ProductService {
     return _sInstance;
   }
 
-  List<ProductModel> getProductList() {
-    final List<ProductModel> list = [];
-    for (var i = 1; i <= 8; i++) {
-      list.add(ProductModel(
-        id: i.toString(),
-        name: 'BMW - X' + i.toString(),
-        image: 'assets/images/bmw/bg_bmw.jpg',
-        price: 10000 + i * 100.0,
-      ));
+  List<dynamic> getProductList() {
+    final int count = 20;
+    final List<dynamic> list = [];
+    for (var i = 0; i < count; i++) {
+      list.add(i);
     }
     return list;
   }

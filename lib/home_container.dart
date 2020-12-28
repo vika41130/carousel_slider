@@ -3,10 +3,9 @@ import 'package:lutoi/model/bottom_tab_bar.model.dart';
 import 'package:lutoi/routing/router.dart';
 import 'package:lutoi/tab_page/home_tab_page.dart';
 import 'package:lutoi/tab_page/another_tab_page.dart';
-import 'package:lutoi/tab_page/product_tab_page.dart';
+import 'package:lutoi/tab_page/resource.page.dart';
 import 'package:lutoi/widget/search_form.dart';
 
-import 'custom_icons.dart';
 
 class HomeContainer extends StatefulWidget {
   HomeContainer({Key key}) : super(key: key);
@@ -30,7 +29,7 @@ class _HomeContainerState extends State<HomeContainer> {
     super.initState();
     pagesList = [
       HomeTabPage(),
-      ProductTabPage(),
+      ResourcePage(),
       BlankTabPage(),
     ];
     createActionsList();
@@ -159,7 +158,7 @@ class _HomeContainerState extends State<HomeContainer> {
 
   void createBottomTabBarDataList() {
     bottomTabBarList.add(BottomTabBarModel(label: 'Home'));
-    bottomTabBarList.add(BottomTabBarModel(label: 'Product'));
+    bottomTabBarList.add(BottomTabBarModel(label: 'Resource'));
     bottomTabBarList.add(BottomTabBarModel(label: 'Blank'));
   }
 

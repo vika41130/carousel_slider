@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lutoi/pages/login.page.dart';
 import 'package:lutoi/tab_page/another_tab_page.dart';
 import 'package:lutoi/tab_page/home_tab_page.dart';
-import 'package:lutoi/tab_page/product_tab_page.dart';
+import 'package:lutoi/tab_page/resource.page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -10,8 +10,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => LoginPage());
     case RoutingConfig.HOME:
       return MaterialPageRoute(builder: (context) => HomeTabPage());
-    case RoutingConfig.PRODUCT:
-      return MaterialPageRoute(builder: (context) => ProductTabPage());
+    case RoutingConfig.RESOURCE:
+      return MaterialPageRoute(builder: (context) => ResourcePage());
     case RoutingConfig.BLANK:
       return MaterialPageRoute(builder: (context) => BlankTabPage());
     default:
@@ -22,6 +22,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 class RoutingConfig {
   static const String LOGIN = '/login';
   static const String HOME = '/';
-  static const String PRODUCT = 'product';
+  static const String RESOURCE = 'product';
   static const String BLANK = 'blank';
 }
