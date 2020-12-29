@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lutoi/service/product_service.dart';
+import 'package:lutoi/model/folder.model.dart';
+import 'package:lutoi/service/resource.service.dart';
 import 'package:lutoi/widget/resource-folder.dart';
 
 class ResourcePage extends StatefulWidget {
@@ -9,16 +10,16 @@ class ResourcePage extends StatefulWidget {
 
 class _ProductState extends State<ResourcePage>
     with AutomaticKeepAliveClientMixin<ResourcePage> {
-  List<dynamic> list = [];
+  List<ResourceFolderModel> list = [];
 
   @override
   void initState() {
     super.initState();
-    list = getProductList();
+    list = getResourceFolder();
   }
 
-  List<dynamic> getProductList() {
-    return ProductService.shared().getProductList();
+  List<dynamic> getResourceFolder() {
+    return ResourceService.shared().getResourceFolder();
   }
 
   @override
@@ -61,7 +62,9 @@ class _ProductState extends State<ResourcePage>
                     itemCount: list.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        child: ResourceFolder(),
+                        child: ResourceFolder(
+                          folder: list[index],
+                        ),
                         decoration: BoxDecoration(
                           border: Border(
                             top: BorderSide(color: Colors.black, width: 0.5),

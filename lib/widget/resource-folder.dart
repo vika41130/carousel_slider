@@ -1,8 +1,13 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hovering/hovering.dart';
+import 'package:lutoi/model/folder.model.dart';
 
 class ResourceFolder extends StatefulWidget {
+  final ResourceFolderModel folder;
+
+  ResourceFolder({this.folder});
+
   @override
   _StateResourceFolder createState() {
     return _StateResourceFolder();
@@ -11,7 +16,6 @@ class ResourceFolder extends StatefulWidget {
 
 class _StateResourceFolder extends State<ResourceFolder> {
   ExpandableController expandableCtrl;
-  bool isExpanded = false;
 
   @override
   void initState() {
@@ -24,14 +28,18 @@ class _StateResourceFolder extends State<ResourceFolder> {
 
   void handleExpandable() {
     setState(() {
-      isExpanded = expandableCtrl.expanded;
+      searchResource();
     });
+  }
+
+  void searchResource() {
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: !isExpanded ? Color(0xFFf1f2f5) : Colors.white,
+      color: !expandableCtrl.expanded ? Color(0xFFf1f2f5) : Colors.white,
       padding: EdgeInsets.zero,
       child: ExpandablePanel(
         controller: expandableCtrl,
@@ -39,11 +47,11 @@ class _StateResourceFolder extends State<ResourceFolder> {
           padding: EdgeInsets.only(top: 15, left: 15),
           child: HoverWidget(
             hoverChild: Text(
-              'AUSTRALIA > KONA > 2020 > J9W5D2G1XH > HAPW',
+              '${widget.folder.path}',
               style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
             ),
             child: Text(
-              'AUSTRALIA > KONA > 2020 > J9W5D2G1XH > HAPW',
+              '${widget.folder.path}',
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
             onHover: (e) {},
