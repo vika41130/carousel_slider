@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lutoi/model/search.param.model.dart';
+import 'package:lutoi/model/system.code.dart';
+import 'package:lutoi/service/system.code.service.dart';
 import 'package:lutoi/shared/search_form.shared.dart';
-import 'package:lutoi/state/search.param.state.dart';
 import 'package:lutoi/widget/search_input.dart';
 
 class SearchForm extends StatefulWidget {
@@ -19,59 +20,79 @@ class _SearchFormState extends State<SearchForm> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 12.0);
   final contentPadding = EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0);
   final border = OutlineInputBorder(borderRadius: BorderRadius.zero);
-  String selected1 = 'All';
-  List<dynamic> items1 = ['All', 'Item 1', 'Item 2', 'Item 3'];
-  String selected2 = 'All';
-  List<dynamic> items2 = ['All', 'Item 1', 'Item 2', 'Item 3'];
+  // SystemCodeItem selected1;
+  // SystemCodeItem selected2;
+  int selected1;
+  int selected2;
+  List<SystemCodeItem> items1 = [];
+  List<SystemCodeItem> items2 = [];
+  List<DropdownMenuItem<int>> droplist1 = [];
+  List<DropdownMenuItem<int>> droplist2 = [];
   String selectedDropdown2;
 
   @override
   void initState() {
     super.initState();
-    setData();
+    prepareData();
+  }
+
+  void prepareData() {
+    items1 = SystemCodeService.shared().getSystemCode();
+    items2 = SystemCodeService.shared().getSystemCode();
+    items1.asMap().forEach((key, value) {
+      droplist1.add(DropdownMenuItem<int>(
+        value: key,
+        child: new Text(value.value),
+      ));
+    });
+    items2.asMap().forEach((key, value) {
+      droplist2.add(DropdownMenuItem<int>(
+        value: key,
+        child: new Text(value.value),
+      ));
+    });
+    final SearchParam searchParam = SearchFormShared.shared().getParam();
+    if (searchParam != null) {
+      selected1 = searchParam.param1;
+      selected2 = searchParam.param2;
+    }
+
   }
 
   void onSearch(String value) {
-    print('-------------------------onSearch value: $value');
-    // SearchParamState.shared().setParam(SearchParam(param1: selected1, param2: selected2, param3: value));
     SearchFormShared.shared().setParam(SearchParam(param1: selected1, param2: selected2, param3: value));
-  }
-
-  void setData() {
-    final SearchParam searchParam = SearchFormShared.shared().getParam();
-    if (searchParam == null) return;
-    selected1 = searchParam.param1;
-    selected2 = searchParam.param2;
   }
 
   @override
   Widget build(BuildContext context) {
-    final dropdown1 = new DropdownButton<String>(
+    final dropdown1 = new DropdownButton<int>(
       isExpanded: true,
       value: selected1,
       underline: SizedBox(),
-      items: items1.map((dynamic value) {
-        return new DropdownMenuItem<String>(
-          value: value,
-          child: new Text(value),
-        );
-      }).toList(),
+      items: droplist1,
+      // items: items1.map((SystemCodeItem value) {
+      //   return new DropdownMenuItem<SystemCodeItem>(
+      //     value: value,
+      //     child: new Text(value.value),
+      //   );
+      // }).toList(),
       onChanged: (value) {
         setState(() {
           selected1 = value;
         });
       },
     );
-    final dropdown2 = new DropdownButton<String>(
+    final dropdown2 = new DropdownButton<int>(
       isExpanded: true,
       value: selected2,
       underline: SizedBox(),
-      items: items1.map((dynamic value) {
-        return new DropdownMenuItem<String>(
-          value: value,
-          child: new Text(value),
-        );
-      }).toList(),
+      items: droplist2,
+      // items: items2.map((SystemCodeItem value) {
+      //   return new DropdownMenuItem<SystemCodeItem>(
+      //     value: value,
+      //     child: new Text(value.value),
+      //   );
+      // }).toList(),
       onChanged: (value) {
         setState(() {
           selected2 = value;

@@ -15,19 +15,19 @@ class SearchParamState extends StateBase {
     return _sInstance;
   }
 
-  void setParam(SearchParam value) {
-    super.setState(StateKey.SEARCH_PARAM, value.toJson());
-  }
+  // void setParam(SearchParam value) {
+  //   super.setState(StateKey.SEARCH_PARAM, value.toJson());
+  // }
 
-  SearchParam getParam() {
-    final params = super.getState(StateKey.SEARCH_PARAM);
-    final SearchParam result = SearchParam();
-    result.fromJson(params);
-    return result;
-  }
+  // SearchParam getParam() {
+  //   final params = super.getState(StateKey.SEARCH_PARAM);
+  //   final SearchParam result = SearchParam();
+  //   result.fromJson(params);
+  //   return result;
+  // }
 
-  void removeParam() {
-    super.removeState(StateKey.SEARCH_PARAM);
-  }
+  // void removeParam() {
+  //   super.removeState(StateKey.SEARCH_PARAM);
+  // }
 
 }
