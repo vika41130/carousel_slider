@@ -5,8 +5,11 @@ import 'package:lutoi/model/folder.model.dart';
 
 class ResourceFolder extends StatefulWidget {
   final ResourceFolderModel folder;
+  final Function(bool) changed;
+  bool isOpen;
 
-  ResourceFolder({this.folder});
+  ResourceFolder({Key key, @required this.folder, this.changed, this.isOpen})
+      : super(key: key);
 
   @override
   _StateResourceFolder createState() {
@@ -22,22 +25,20 @@ class _StateResourceFolder extends State<ResourceFolder> {
     super.initState();
     expandableCtrl = new ExpandableController();
     expandableCtrl.addListener(() {
-      handleExpandable();
-    });
-  }
-
-  void handleExpandable() {
-    setState(() {
+      widget.isOpen = expandableCtrl.expanded;
+      widget.changed.call(expandableCtrl.expanded);
       searchResource();
     });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      expandableCtrl.expanded = widget.isOpen != null ? widget.isOpen : false;
+    });
   }
 
-  void searchResource() {
-
-  }
+  void searchResource() {}
 
   @override
   Widget build(BuildContext context) {
+    expandableCtrl.expanded = widget.isOpen;
     return Container(
       color: !expandableCtrl.expanded ? Color(0xFFf1f2f5) : Colors.white,
       padding: EdgeInsets.zero,
@@ -59,7 +60,7 @@ class _StateResourceFolder extends State<ResourceFolder> {
         ),
         expanded: Container(
           padding: EdgeInsets.all(15),
-          child: Text('Expandable Content', softWrap: true,),
+          child: Text('Content'),
           decoration: BoxDecoration(
           ),
         ),

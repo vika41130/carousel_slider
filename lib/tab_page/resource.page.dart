@@ -5,12 +5,13 @@ import 'package:lutoi/widget/resource-folder.dart';
 
 class ResourcePage extends StatefulWidget {
   @override
-  _ProductState createState() => _ProductState();
+  _ResourcePageState createState() => _ResourcePageState();
 }
 
-class _ProductState extends State<ResourcePage>
+class _ResourcePageState extends State<ResourcePage>
     with AutomaticKeepAliveClientMixin<ResourcePage> {
   List<ResourceFolderModel> list = [];
+  int expandedIdx = 0;
 
   @override
   void initState() {
@@ -47,7 +48,8 @@ class _ProductState extends State<ResourcePage>
                           ],
                         ),
                         onPressed:  () {
-                          
+                          setState(() {
+                          });
                         },
                       ),
                       Spacer(),
@@ -64,6 +66,16 @@ class _ProductState extends State<ResourcePage>
                       return Container(
                         child: ResourceFolder(
                           folder: list[index],
+                          isOpen: expandedIdx == index,
+                          changed: (v) {
+                            setState(() {
+                              if (v) {
+                                expandedIdx = index;
+                              } else if(expandedIdx == index) {
+                                expandedIdx = null;
+                              }
+                            });
+                          },
                         ),
                         decoration: BoxDecoration(
                           border: Border(
