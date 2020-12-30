@@ -3,8 +3,8 @@ import 'package:lutoi/model/system.code.dart';
 
 @JsonSerializable(nullable: false)
 class SearchParam {
-  int param1;
-  int param2;
+  String param1;
+  String param2;
   String param3;
 
   SearchParam({this.param1, this.param2, this.param3});

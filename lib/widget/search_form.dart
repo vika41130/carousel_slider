@@ -20,14 +20,12 @@ class _SearchFormState extends State<SearchForm> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 12.0);
   final contentPadding = EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0);
   final border = OutlineInputBorder(borderRadius: BorderRadius.zero);
-  // SystemCodeItem selected1;
-  // SystemCodeItem selected2;
-  int selected1;
-  int selected2;
+  String selected1;
+  String selected2;
   List<SystemCodeItem> items1 = [];
   List<SystemCodeItem> items2 = [];
-  List<DropdownMenuItem<int>> droplist1 = [];
-  List<DropdownMenuItem<int>> droplist2 = [];
+  List<DropdownMenuItem<String>> droplist1 = [];
+  List<DropdownMenuItem<String>> droplist2 = [];
   String selectedDropdown2;
 
   @override
@@ -39,18 +37,6 @@ class _SearchFormState extends State<SearchForm> {
   void prepareData() {
     items1 = SystemCodeService.shared().getSystemCode();
     items2 = SystemCodeService.shared().getSystemCode();
-    items1.asMap().forEach((key, value) {
-      droplist1.add(DropdownMenuItem<int>(
-        value: key,
-        child: new Text(value.value),
-      ));
-    });
-    items2.asMap().forEach((key, value) {
-      droplist2.add(DropdownMenuItem<int>(
-        value: key,
-        child: new Text(value.value),
-      ));
-    });
     final SearchParam searchParam = SearchFormShared.shared().getParam();
     if (searchParam != null) {
       selected1 = searchParam.param1;
@@ -65,34 +51,32 @@ class _SearchFormState extends State<SearchForm> {
 
   @override
   Widget build(BuildContext context) {
-    final dropdown1 = new DropdownButton<int>(
+    final dropdown1 = new DropdownButton<String>(
       isExpanded: true,
       value: selected1,
       underline: SizedBox(),
-      items: droplist1,
-      // items: items1.map((SystemCodeItem value) {
-      //   return new DropdownMenuItem<SystemCodeItem>(
-      //     value: value,
-      //     child: new Text(value.value),
-      //   );
-      // }).toList(),
+      items: items1.map((SystemCodeItem value) {
+        return new DropdownMenuItem<String>(
+          value: value.name,
+          child: new Text(value.value),
+        );
+      }).toList(),
       onChanged: (value) {
         setState(() {
           selected1 = value;
         });
       },
     );
-    final dropdown2 = new DropdownButton<int>(
+    final dropdown2 = new DropdownButton<String>(
       isExpanded: true,
       value: selected2,
       underline: SizedBox(),
-      items: droplist2,
-      // items: items2.map((SystemCodeItem value) {
-      //   return new DropdownMenuItem<SystemCodeItem>(
-      //     value: value,
-      //     child: new Text(value.value),
-      //   );
-      // }).toList(),
+      items: items2.map((SystemCodeItem value) {
+        return new DropdownMenuItem<String>(
+          value: value.name,
+          child: new Text(value.value),
+        );
+      }).toList(),
       onChanged: (value) {
         setState(() {
           selected2 = value;
