@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:lutoi/model/search.param.model.dart';
 import 'package:lutoi/model/system.code.dart';
 import 'package:lutoi/service/system.code.service.dart';
@@ -26,7 +29,7 @@ class _SearchFormState extends State<SearchForm> {
   List<SystemCodeItem> items2 = [];
   List<DropdownMenuItem<String>> droplist1 = [];
   List<DropdownMenuItem<String>> droplist2 = [];
-  String selectedDropdown2;
+  Timer _timer;
 
   @override
   void initState() {
@@ -46,6 +49,13 @@ class _SearchFormState extends State<SearchForm> {
   }
 
   void onSearch(String value) {
+    if (_timer != null) {
+      _timer.cancel();
+    }
+    EasyLoading.show(status: 'loading...');
+    _timer = new Timer.periodic(Duration(seconds: 1), (timer) {
+      EasyLoading.dismiss();
+    });
     SearchFormShared.shared().setParam(SearchParam(param1: selected1, param2: selected2, param3: value));
   }
 
