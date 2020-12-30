@@ -38,7 +38,9 @@ class _StateResourceFolder extends State<ResourceFolder> {
 
   @override
   Widget build(BuildContext context) {
-    expandableCtrl.expanded = widget.isOpen;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      expandableCtrl.expanded = widget.isOpen;
+    });
     return Container(
       color: !expandableCtrl.expanded ? Color(0xFFf1f2f5) : Colors.white,
       padding: EdgeInsets.zero,
