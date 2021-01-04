@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lutoi/model/resource.model.dart';
 
 class Thumbnail extends StatefulWidget {
-
   final Resource resource;
   final double height;
   final double width;
@@ -47,19 +46,25 @@ class _StateThumbnail extends State<Thumbnail> {
           ),
           Row(
             children: [
-              Checkbox(
-                value: checked,
-                onChanged: (v) {
-                  setState(() {
-                    checked = v;
-                  });
-                  widget.changed.call(v);
-                },
+              SizedBox(
+                width: 20,
+                child: Checkbox(
+                  value: checked,
+                  onChanged: (v) {
+                    setState(() {
+                      checked = v;
+                    });
+                    widget.changed.call(v);
+                  },
+                ),
               ),
               Spacer(),
-              IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {},
+              SizedBox(
+                width: 30,
+                child: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {},
+                ),
               )
             ],
           ),

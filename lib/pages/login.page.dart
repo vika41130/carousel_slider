@@ -68,9 +68,10 @@ class _StateLoginPage extends State<LoginPage> {
           setState(() {
             formSubmitted = true;
           });
-          if (loginModel.checkValidate()) {
-            Navigator.of(context).pushReplacementNamed(RoutingConfig.HOME);
-          }
+          Navigator.of(context).pushReplacementNamed(RoutingConfig.HOME);
+          // if (loginModel.checkValidate()) {
+          //   Navigator.of(context).pushReplacementNamed(RoutingConfig.HOME);
+          // }
         },
         child: Text("Login",
             textAlign: TextAlign.center,

@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hovering/hovering.dart';
+import 'package:lutoi/model/category-item.model.dart';
 import 'package:lutoi/model/folder.model.dart';
 import 'package:lutoi/model/resource.model.dart';
 import 'package:lutoi/service/resource.service.dart';
@@ -23,6 +24,7 @@ class ResourceFolder extends StatefulWidget {
 class _StateResourceFolder extends State<ResourceFolder> {
   ExpandableController expandableCtrl;
   List<Resource> resourceLst = [];
+  List<CategoryItem> categories = [];
 
   @override
   void initState() {
@@ -32,6 +34,7 @@ class _StateResourceFolder extends State<ResourceFolder> {
       widget.isOpen = expandableCtrl.expanded;
       widget.changed.call(expandableCtrl.expanded);
       searchResource();
+      setCategories();
     });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       expandableCtrl.expanded = widget.isOpen != null ? widget.isOpen : false;
@@ -40,6 +43,111 @@ class _StateResourceFolder extends State<ResourceFolder> {
 
   void searchResource() {
     resourceLst = ResourceService.shared().getResource();
+  }
+
+  void setCategories() {
+    categories.add(CategoryItem(name: 'All', value: 'All', selected: true));
+    categories
+        .add(CategoryItem(name: 'Item 1', value: 'Item 1', selected: false));
+    categories
+        .add(CategoryItem(name: 'Item 2', value: 'Item 2', selected: false));
+    categories
+        .add(CategoryItem(name: 'Item 3', value: 'Item 3', selected: false));
+    categories
+        .add(CategoryItem(name: 'Item 4', value: 'Item 4', selected: false));
+  }
+
+  Widget header() {
+    return Container(
+      padding: EdgeInsets.only(top: 15, left: 15),
+      child: HoverWidget(
+        hoverChild: Text(
+          '${widget.folder.path}',
+          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
+        ),
+        child: Text(
+          '${widget.folder.path}',
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        onHover: (e) {},
+      ),
+    );
+  }
+
+  Widget leftContent() {
+    return Container(
+      height: 120,
+      width: double.infinity,
+      child: ListView.builder(
+          itemCount: categories.length,
+          itemBuilder: (context, index) {
+            return SizedBox(
+              height: 20,
+              child: InkWell(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
+                      child: Checkbox(
+                        value: categories[index].selected,
+                        onChanged: (v) {
+                          setState(() {
+                            categories[index].selected = v;
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: categories[index].selected
+                              ? Colors.grey
+                              : Colors.transparent,
+                        ),
+                        child: Text(
+                          '${categories[index].value}',
+                          style: TextStyle(
+                            color: categories[index].selected
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  searchResource();
+                },
+              ),
+            );
+          }),
+    );
+  }
+
+  Widget rightContent() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(left: BorderSide(width: 0.5, color: Colors.black)),
+      ),
+      padding: EdgeInsets.only(left: 20),
+      child: Wrap(
+        spacing: 20,
+        children: [
+          for (var index = 0; index < resourceLst.length; index++)
+            Container(
+              width: 300,
+              child: Thumbnail(
+                resource: resourceLst[index],
+                width: 300,
+              ),
+            )
+        ],
+      ),
+    );
   }
 
   @override
@@ -52,20 +160,7 @@ class _StateResourceFolder extends State<ResourceFolder> {
       padding: EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 0),
       child: ExpandablePanel(
         controller: expandableCtrl,
-        header: Container(
-          padding: EdgeInsets.only(top: 15, left: 15),
-          child: HoverWidget(
-            hoverChild: Text(
-              '${widget.folder.path}',
-              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
-            ),
-            child: Text(
-              '${widget.folder.path}',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-            onHover: (e) {},
-          ),
-        ),
+        header: header(),
         expanded: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.only(top: 0, right: 15, bottom: 0, left: 15),
@@ -74,104 +169,11 @@ class _StateResourceFolder extends State<ResourceFolder> {
               children: [
                 Expanded(
                   flex: 1,
-                    child: Container(
-                      height: 120,
-                      width: double.infinity,
-                      // decoration: BoxDecoration(
-                      //   border: Border(right: BorderSide(width: 1, color: Colors.black)),
-                      // ),
-                      child: ListView(
-                      children: [
-                        SizedBox(
-                          height: 20,
-                          child: InkWell(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey,
-                              ),
-                              child: Text(
-                                'All',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            onTap: () {
-                              searchResource();
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                          child: InkWell(
-                            child: Text('Item 1'),
-                            onTap: () {
-                              searchResource();
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                          child: InkWell(
-                            child: Text('Item 2'),
-                            onTap: () {
-                              searchResource();
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                          child: InkWell(
-                            child: Text('Item 3'),
-                            onTap: () {
-                              searchResource();
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                          child: InkWell(
-                            child: Text('Item 4'),
-                            onTap: () {
-                              searchResource();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: leftContent(),
                 ),
                 Expanded(
                   flex: 9,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(left: BorderSide(width: 0.5, color: Colors.black)),
-                    ),
-                    padding: EdgeInsets.only(left: 20),
-                    // height: 300,
-                    // width: 500,
-                    // child: GridView.builder(
-                    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //     crossAxisCount: 3,
-                    //     mainAxisSpacing: 0,
-                    //     crossAxisSpacing: 20,
-                    //   ),
-                    //   itemCount: resourceLst.length,
-                    //   itemBuilder: (context, index) {
-                    //     return Thumbnail(resource: resourceLst[index],);
-                    //   },
-                    // ),
-                    child: Wrap(
-                      spacing: 20,
-                      children: [
-                        for (var index = 0; index < resourceLst.length; index++)
-                          Container(
-                            width: 300,
-                            child: Thumbnail(resource: resourceLst[index], width: 300,),
-                          )
-                      ],
-                    ),
-                  ),
+                  child: rightContent(),
                 ),
               ],
             ),
