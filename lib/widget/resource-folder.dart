@@ -30,11 +30,11 @@ class _StateResourceFolder extends State<ResourceFolder> {
   void initState() {
     super.initState();
     expandableCtrl = new ExpandableController();
+    setCategories();
     expandableCtrl.addListener(() {
       widget.isOpen = expandableCtrl.expanded;
       widget.changed.call(expandableCtrl.expanded);
       searchResource();
-      setCategories();
     });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       expandableCtrl.expanded = widget.isOpen != null ? widget.isOpen : false;
