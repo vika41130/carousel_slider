@@ -2,6 +2,9 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hovering/hovering.dart';
 import 'package:lutoi/model/folder.model.dart';
+import 'package:lutoi/model/resource.model.dart';
+import 'package:lutoi/service/resource.service.dart';
+import 'package:lutoi/widget/thumbnail.dart';
 
 class ResourceFolder extends StatefulWidget {
   final ResourceFolderModel folder;
@@ -19,6 +22,7 @@ class ResourceFolder extends StatefulWidget {
 
 class _StateResourceFolder extends State<ResourceFolder> {
   ExpandableController expandableCtrl;
+  List<Resource> resourceLst = [];
 
   @override
   void initState() {
@@ -34,7 +38,9 @@ class _StateResourceFolder extends State<ResourceFolder> {
     });
   }
 
-  void searchResource() {}
+  void searchResource() {
+    resourceLst = ResourceService.shared().getResource();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +66,90 @@ class _StateResourceFolder extends State<ResourceFolder> {
             onHover: (e) {},
           ),
         ),
-        expanded: Container(
-          padding: EdgeInsets.all(15),
-          child: Text('Content'),
-          decoration: BoxDecoration(
+        expanded: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(top: 0, right: 15, bottom: 0, left: 15),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 120,
+                  width: 150,
+                  // decoration: BoxDecoration(
+                  //   border: Border(right: BorderSide(width: 1, color: Colors.black)),
+                  // ),
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                        child: InkWell(
+                          child: Text('All'),
+                          onTap: () {
+                            searchResource();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                        child: InkWell(
+                          child: Text('Item 1'),
+                          onTap: () {
+                            searchResource();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                        child: InkWell(
+                          child: Text('Item 2'),
+                          onTap: () {
+                            searchResource();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                        child: InkWell(
+                          child: Text('Item 3'),
+                          onTap: () {
+                            searchResource();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                        child: InkWell(
+                          child: Text('Item 4'),
+                          onTap: () {
+                            searchResource();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                    border: Border(left: BorderSide(width: 1, color: Colors.black)),
+                  ),
+                    height: 300,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 0,
+                        crossAxisSpacing: 20,
+                      ),
+                      itemCount: resourceLst.length,
+                      itemBuilder: (context, index) {
+                        return Thumbnail(resource: resourceLst[index],);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            decoration: BoxDecoration(),
           ),
         ),
         theme: ExpandableThemeData(
