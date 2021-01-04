@@ -41,20 +41,20 @@ class _StateResourceFolder extends State<ResourceFolder> {
     });
   }
 
-  void searchResource() {
-    resourceLst = ResourceService.shared().getResource();
+  void searchResource({int length}) {
+    resourceLst = ResourceService.shared().getResource(length: length);
   }
 
   void setCategories() {
-    categories.add(CategoryItem(name: 'All', value: 'All', selected: true));
+    categories.add(CategoryItem(categoryDisplayName: 'All', selected: true));
     categories
-        .add(CategoryItem(name: 'Item 1', value: 'Item 1', selected: false));
+        .add(CategoryItem(categoryDisplayName: 'Item 1', selected: false));
     categories
-        .add(CategoryItem(name: 'Item 2', value: 'Item 2', selected: false));
+        .add(CategoryItem(categoryDisplayName: 'Item 2', selected: false));
     categories
-        .add(CategoryItem(name: 'Item 3', value: 'Item 3', selected: false));
+        .add(CategoryItem(categoryDisplayName: 'Item 3', selected: false));
     categories
-        .add(CategoryItem(name: 'Item 4', value: 'Item 4', selected: false));
+        .add(CategoryItem(categoryDisplayName: 'Item 4', selected: false));
   }
 
   void resetCategories() {
@@ -102,6 +102,12 @@ class _StateResourceFolder extends State<ResourceFolder> {
                           setState(() {
                             resetCategories();
                             categories[index].selected = v;
+                            if (categories[index].categoryDisplayName ==
+                                'All') {
+                              searchResource();
+                            } else {
+                              searchResource(length: 3);
+                            }
                           });
                         },
                       ),
@@ -117,7 +123,7 @@ class _StateResourceFolder extends State<ResourceFolder> {
                               : Colors.transparent,
                         ),
                         child: Text(
-                          '${categories[index].value}',
+                          '${categories[index].categoryDisplayName}',
                           style: TextStyle(
                             color: categories[index].selected
                                 ? Colors.white
@@ -134,7 +140,11 @@ class _StateResourceFolder extends State<ResourceFolder> {
                     categories[index].selected =
                         categories[index].selected ? false : true;
                   });
-                  searchResource();
+                  if (categories[index].categoryDisplayName == 'All') {
+                    searchResource();
+                  } else {
+                    searchResource(length: 3);
+                  }
                 },
               ),
             );

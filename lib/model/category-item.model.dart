@@ -1,6 +1,5 @@
 class CategoryItem {
-  String name;
-  String value;
+  String categoryDisplayName;
   bool selected;
-  CategoryItem({this.name, this.value, this.selected});
+  CategoryItem({this.categoryDisplayName, this.selected});
 }

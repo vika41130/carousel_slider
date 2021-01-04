@@ -37,7 +37,7 @@ class ResourceService {
     return list;
   }
 
-  List<Resource> getResource() {
+  List<Resource> getResource({int length}) {
     final List<Resource> list = [];
     list.add(Resource(fileName: 'BMW 1', url: 'assets/images/bmw/driver1.jpg'));
     list.add(Resource(fileName: 'BMW 2', url: 'assets/images/bmw/driver2.jpg'));
@@ -47,6 +47,10 @@ class ResourceService {
     list.add(Resource(fileName: 'BMW 6', url: 'assets/images/bmw/driver6.jpg'));
     list.add(Resource(fileName: 'BMW 7', url: 'assets/images/bmw/driver7.jpg'));
     list.add(Resource(fileName: 'BMW 8', url: 'assets/images/bmw/driver8.jpg'));
+
+    if (length != null) {
+      return list.sublist(0, length);
+    }
     return list;
   }
 }
