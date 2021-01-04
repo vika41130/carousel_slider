@@ -72,73 +72,77 @@ class _StateResourceFolder extends State<ResourceFolder> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 120,
-                  width: 150,
-                  // decoration: BoxDecoration(
-                  //   border: Border(right: BorderSide(width: 1, color: Colors.black)),
-                  // ),
-                  child: ListView(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                        child: InkWell(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                            ),
-                            child: Text(
-                              'All',
-                              style: TextStyle(
-                                color: Colors.white,
+                Expanded(
+                  flex: 1,
+                    child: Container(
+                      height: 120,
+                      width: double.infinity,
+                      // decoration: BoxDecoration(
+                      //   border: Border(right: BorderSide(width: 1, color: Colors.black)),
+                      // ),
+                      child: ListView(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                          child: InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                              ),
+                              child: Text(
+                                'All',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
+                            onTap: () {
+                              searchResource();
+                            },
                           ),
-                          onTap: () {
-                            searchResource();
-                          },
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                        child: InkWell(
-                          child: Text('Item 1'),
-                          onTap: () {
-                            searchResource();
-                          },
+                        SizedBox(
+                          height: 20,
+                          child: InkWell(
+                            child: Text('Item 1'),
+                            onTap: () {
+                              searchResource();
+                            },
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                        child: InkWell(
-                          child: Text('Item 2'),
-                          onTap: () {
-                            searchResource();
-                          },
+                        SizedBox(
+                          height: 20,
+                          child: InkWell(
+                            child: Text('Item 2'),
+                            onTap: () {
+                              searchResource();
+                            },
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                        child: InkWell(
-                          child: Text('Item 3'),
-                          onTap: () {
-                            searchResource();
-                          },
+                        SizedBox(
+                          height: 20,
+                          child: InkWell(
+                            child: Text('Item 3'),
+                            onTap: () {
+                              searchResource();
+                            },
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                        child: InkWell(
-                          child: Text('Item 4'),
-                          onTap: () {
-                            searchResource();
-                          },
+                        SizedBox(
+                          height: 20,
+                          child: InkWell(
+                            child: Text('Item 4'),
+                            onTap: () {
+                              searchResource();
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
+                  flex: 9,
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border(left: BorderSide(width: 0.5, color: Colors.black)),
