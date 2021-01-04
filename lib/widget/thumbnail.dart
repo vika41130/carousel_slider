@@ -42,7 +42,8 @@ class _StateThumbnail extends State<Thumbnail> {
           SizedBox(height: 10),
           Image(
             image: AssetImage('assets/images/bmw/driver1.jpg'),
-            // width: 200,
+            // height: 200,
+            // width: widget.width,
           ),
           Row(
             children: [

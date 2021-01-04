@@ -49,7 +49,7 @@ class _StateResourceFolder extends State<ResourceFolder> {
     });
     return Container(
       color: !expandableCtrl.expanded ? Color(0xFFf1f2f5) : Colors.white,
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 0),
       child: ExpandablePanel(
         controller: expandableCtrl,
         header: Container(
@@ -83,7 +83,17 @@ class _StateResourceFolder extends State<ResourceFolder> {
                       SizedBox(
                         height: 20,
                         child: InkWell(
-                          child: Text('All'),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                            ),
+                            child: Text(
+                              'All',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                           onTap: () {
                             searchResource();
                           },
@@ -131,24 +141,32 @@ class _StateResourceFolder extends State<ResourceFolder> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border(left: BorderSide(width: 1, color: Colors.black)),
+                      border: Border(left: BorderSide(width: 0.5, color: Colors.black)),
                     ),
                     padding: EdgeInsets.only(left: 20),
-                    height: 300,
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 0,
-                        crossAxisSpacing: 20,
-                      ),
-                      itemCount: resourceLst.length,
-                      itemBuilder: (context, index) {
-                        return Thumbnail(resource: resourceLst[index],);
-                      },
-                    ),
-                    // child: GridView.count(
-
+                    // height: 300,
+                    // width: 500,
+                    // child: GridView.builder(
+                    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    //     crossAxisCount: 3,
+                    //     mainAxisSpacing: 0,
+                    //     crossAxisSpacing: 20,
+                    //   ),
+                    //   itemCount: resourceLst.length,
+                    //   itemBuilder: (context, index) {
+                    //     return Thumbnail(resource: resourceLst[index],);
+                    //   },
                     // ),
+                    child: Wrap(
+                      spacing: 20,
+                      children: [
+                        for (var index = 0; index < resourceLst.length; index++)
+                          Container(
+                            width: 300,
+                            child: Thumbnail(resource: resourceLst[index], width: 300,),
+                          )
+                      ],
+                    ),
                   ),
                 ),
               ],
