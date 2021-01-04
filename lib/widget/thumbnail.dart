@@ -6,7 +6,8 @@ class Thumbnail extends StatefulWidget {
   final Resource resource;
   final double height;
   final double width;
-  Thumbnail({this.resource, this.height, this.width});
+  final Function changed;
+  Thumbnail({this.resource, this.height, this.width, this.changed});
 
   @override
   _StateThumbnail createState() {
@@ -15,6 +16,7 @@ class Thumbnail extends StatefulWidget {
 }
 
 class _StateThumbnail extends State<Thumbnail> {
+  bool checked = false;
   @override
   void initState() {
     super.initState();
@@ -30,12 +32,35 @@ class _StateThumbnail extends State<Thumbnail> {
       child: Column(
         children: [
           Center(
-            child: Text('${widget.resource.fileName}'),
+            child: Text(
+              '${widget.resource.fileName}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           SizedBox(height: 10),
           Image(
             image: AssetImage('assets/images/bmw/driver1.jpg'),
-            width: 200,
+            // width: 200,
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: checked,
+                onChanged: (v) {
+                  setState(() {
+                    checked = v;
+                  });
+                  widget.changed.call(v);
+                },
+              ),
+              Spacer(),
+              IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () {},
+              )
+            ],
           ),
         ],
       ),

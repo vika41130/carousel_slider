@@ -131,8 +131,9 @@ class _StateResourceFolder extends State<ResourceFolder> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                    border: Border(left: BorderSide(width: 1, color: Colors.black)),
-                  ),
+                      border: Border(left: BorderSide(width: 1, color: Colors.black)),
+                    ),
+                    padding: EdgeInsets.only(left: 20),
                     height: 300,
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -145,6 +146,9 @@ class _StateResourceFolder extends State<ResourceFolder> {
                         return Thumbnail(resource: resourceLst[index],);
                       },
                     ),
+                    // child: GridView.count(
+
+                    // ),
                   ),
                 ),
               ],
