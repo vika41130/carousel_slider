@@ -120,6 +120,9 @@ class _StateResourceFolder extends State<ResourceFolder> {
                   ],
                 ),
                 onTap: () {
+                  setState(() {
+                    categories[index].selected = categories[index].selected ? false : true;
+                  });
                   searchResource();
                 },
               ),

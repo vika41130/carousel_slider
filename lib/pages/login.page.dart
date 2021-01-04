@@ -66,7 +66,7 @@ class _StateLoginPage extends State<LoginPage> {
           //     (r) => false
           // );
           setState(() {
-            formSubmitted = true;
+            // formSubmitted = true;
           });
           Navigator.of(context).pushReplacementNamed(RoutingConfig.HOME);
           // if (loginModel.checkValidate()) {
