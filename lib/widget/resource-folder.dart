@@ -57,6 +57,14 @@ class _StateResourceFolder extends State<ResourceFolder> {
         .add(CategoryItem(name: 'Item 4', value: 'Item 4', selected: false));
   }
 
+  void resetCategories() {
+    categories.forEach((element) {
+      setState(() {
+        element.selected = false;
+      });
+    });
+  }
+
   Widget header() {
     return Container(
       padding: EdgeInsets.only(top: 15, left: 15),
@@ -92,6 +100,7 @@ class _StateResourceFolder extends State<ResourceFolder> {
                         value: categories[index].selected,
                         onChanged: (v) {
                           setState(() {
+                            resetCategories();
                             categories[index].selected = v;
                           });
                         },
@@ -120,8 +129,10 @@ class _StateResourceFolder extends State<ResourceFolder> {
                   ],
                 ),
                 onTap: () {
+                  resetCategories();
                   setState(() {
-                    categories[index].selected = categories[index].selected ? false : true;
+                    categories[index].selected =
+                        categories[index].selected ? false : true;
                   });
                   searchResource();
                 },
