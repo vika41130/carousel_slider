@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lutoi/widget/scrollable-positioned-list.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,6 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = 'Package';
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: title,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -24,27 +26,12 @@ class MyApp extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Column(
                       children: [
-                        Flexible(
-                          // flex: 1,
-                          // fit: FlexFit.tight,
-                          child: Container(
-                            padding: EdgeInsets.only(top: 20, bottom: 20),
-                            child: Text(
-                              'Package',
-                              style: TextStyle(
-                                fontSize: 50,
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(bottom: BorderSide(color: Colors.black, width: 2),),
-                            ),
-                          ),
-                        ),
+                        Text('Scrollable Positioned List', style: TextStyle(fontSize: 30),),
+                        ScrollablePositionedListWidget(),
                       ],
-                    ),
+                    )
                   ],
                 )
               ],
