@@ -7,7 +7,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final title = 'Flutter Demo';
+    final title = 'Package';
     return MaterialApp(
       title: title,
       theme: ThemeData(
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
                           child: Container(
                             padding: EdgeInsets.only(top: 20, bottom: 20),
                             child: Text(
-                              'Development',
+                              'Package',
                               style: TextStyle(
                                 fontSize: 50,
                               ),
