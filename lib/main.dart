@@ -13,6 +13,8 @@ class _MyAppState extends State<MyApp> {
   String message = "";
   ScrollController _controller;
   final itemSize = 100.0;
+  bool isBeginned = true;
+  bool isEnded = false;
 
   @override
   void initState() {
@@ -24,23 +26,29 @@ class _MyAppState extends State<MyApp> {
   }
 
   _scrollListener() {
-    print('------------------------_scrollListener run');
+    print('------------------reset_scrollListener run');
+    setState(() {
+      isBeginned = false;
+      isEnded = false;
+    });
     if (_controller.offset >= _controller.position.maxScrollExtent &&
         !_controller.position.outOfRange) {
       setState(() {
-        message = "reach the bottom";
+        message = "reach the end";
+        isEnded = true;
       });
     }
     if (_controller.offset <= _controller.position.minScrollExtent &&
         !_controller.position.outOfRange) {
       setState(() {
-        message = "reach the top";
+        message = "reach the begin";
+        isBeginned = true;
       });
     }
   }
 
   _moveUp() {
-  // _controller.jumpTo(pixelsToMove);
+    // _controller.jumpTo(pixelsToMove);
     _controller.animateTo(_controller.offset - itemSize,
         curve: Curves.linear, duration: Duration(milliseconds: 500));
   }
@@ -49,7 +57,6 @@ class _MyAppState extends State<MyApp> {
     _controller.animateTo(_controller.offset + itemSize,
         curve: Curves.linear, duration: Duration(milliseconds: 500));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,29 +70,21 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: Column(
+        body: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              height: 50.0,
-              color: Colors.green,
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text("up"),
+            isBeginned
+                ? SizedBox()
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                      child: Text("pre"),
                       onPressed: _moveUp,
                     ),
-                    RaisedButton(
-                      child: Text("down"),
-                      onPressed: _moveDown,
-                    )
-                  ],
-                ),
-              ),
-            ),
+                  ),
             Expanded(
               child: ListView.builder(
+                scrollDirection: Axis.horizontal,
                 controller: _controller,
                 itemCount: 30,
                 itemExtent: itemSize,
@@ -94,6 +93,15 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
             ),
+            isEnded
+                ? SizedBox()
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                      child: Text("next"),
+                      onPressed: _moveDown,
+                    ),
+                  ),
           ],
         ),
       ),
