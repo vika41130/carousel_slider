@@ -70,46 +70,50 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: Stack(
           children: <Widget>[
-            isBeginned
-                ? SizedBox()
-                : Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      child: Text("pre"),
-                      onPressed: _movePre,
-                    ),
-                  ),
             SizedBox(
               width: 30,
             ),
-            Expanded(
-              child: Container(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  controller: _controller,
-                  itemCount: 30,
-                  itemExtent: itemSize,
-                  itemBuilder: (context, index) {
-                    return ListTile(title: Text("Index : $index"));
-                  },
-                ),
+            Container(
+              margin: EdgeInsets.only(left: 60, right: 60),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                controller: _controller,
+                itemCount: 30,
+                itemExtent: itemSize,
+                itemBuilder: (context, index) {
+                  return ListTile(title: Text("Index : $index"));
+                },
               ),
             ),
             SizedBox(
               width: 30,
             ),
+            isBeginned
+                ? SizedBox()
+                : Positioned(
+                  top: 0, left: 0,
+                                  child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RaisedButton(
+                        child: Text("pre"),
+                        onPressed: _movePre,
+                      ),
+                    ),
+                ),
             isEnded
                 ? SizedBox()
-                : Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      child: Text("next"),
-                      onPressed: _moveNext,
+                : Positioned(
+                  top: 0, right: 0,
+                                  child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RaisedButton(
+                        child: Text("next"),
+                        onPressed: _moveNext,
+                      ),
                     ),
-                  ),
+                ),
           ],
         ),
       ),
