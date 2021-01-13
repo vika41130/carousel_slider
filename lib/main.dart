@@ -47,13 +47,13 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  _moveUp() {
+  _movePre() {
     // _controller.jumpTo(pixelsToMove);
     _controller.animateTo(_controller.offset - itemSize,
         curve: Curves.linear, duration: Duration(milliseconds: 500));
   }
 
-  _moveDown() {
+  _moveNext() {
     _controller.animateTo(_controller.offset + itemSize,
         curve: Curves.linear, duration: Duration(milliseconds: 500));
   }
@@ -79,19 +79,27 @@ class _MyAppState extends State<MyApp> {
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
                       child: Text("pre"),
-                      onPressed: _moveUp,
+                      onPressed: _movePre,
                     ),
                   ),
+            SizedBox(
+              width: 30,
+            ),
             Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                controller: _controller,
-                itemCount: 30,
-                itemExtent: itemSize,
-                itemBuilder: (context, index) {
-                  return ListTile(title: Text("Index : $index"));
-                },
+              child: Container(
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  controller: _controller,
+                  itemCount: 30,
+                  itemExtent: itemSize,
+                  itemBuilder: (context, index) {
+                    return ListTile(title: Text("Index : $index"));
+                  },
+                ),
               ),
+            ),
+            SizedBox(
+              width: 30,
             ),
             isEnded
                 ? SizedBox()
@@ -99,7 +107,7 @@ class _MyAppState extends State<MyApp> {
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
                       child: Text("next"),
-                      onPressed: _moveDown,
+                      onPressed: _moveNext,
                     ),
                   ),
           ],
