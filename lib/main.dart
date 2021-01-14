@@ -69,27 +69,31 @@ class _MyAppState extends State<MyApp> {
               Container(
                 height: 140,
               ),
-              Expanded(
-                child: SwiperWidget(
-                  itemWidth: 200,
-                  itemMargin: 20,
-                  items: tempItems,
-                  numbersOfItemsVisible: 3,
-                  preBottom: 10,
-                  preLeft: 10,
-                  nextBottom: 10,
-                  nextRight: 10,
-                ),
-              ),
-              // Container(
-              //   height: 100,
+              // Expanded(
               //   child: SwiperWidget(
               //     itemWidth: 200,
               //     itemMargin: 20,
               //     items: tempItems,
               //     numbersOfItemsVisible: 3,
+              //     preBottom: 10,
+              //     preLeft: 10,
+              //     nextBottom: 10,
+              //     nextRight: 10,
               //   ),
               // ),
+              Container(
+                height: 190,
+                child: SwiperWidget(
+                  itemWidth: 200,
+                  itemMargin: 20,
+                  items: tempItems,
+                  numbersOfItemsVisible: 3,
+                  preBottom: 30,
+                  preLeft: 30,
+                  nextBottom: 30,
+                  nextRight: 30,
+                ),
+              ),
               Expanded(
                 child: Text('bottom bar'),
               ),
