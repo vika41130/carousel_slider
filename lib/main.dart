@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lutoi/widget/buttons/button_next_1.dart';
+import 'package:lutoi/widget/buttons/button_pre_1.dart';
 import 'package:lutoi/widget/swiper_widget.dart';
 
 void main() {
@@ -21,9 +23,21 @@ class _MyAppState extends State<MyApp> {
     final title = 'Flutter Demo';
     final List<Widget> tempItems = [];
     for (var i = 0; i < 30; i++) {
-      if (i == 15) {
+    //   tempItems.add(Container(
+    //       height: 60,
+    //       child: Column(
+    //         mainAxisAlignment: MainAxisAlignment.end,
+    //         children: [
+    //           Image(
+    //             image: AssetImage('assets/images/bmw/driver1.jpg'),
+    //             width: 100,
+    //           ),
+    //         ],
+    //       ),
+    //     ));
+      if (i == 1 || i == 3) {
         tempItems.add(Container(
-          height: 150,
+          // height: 150,
           // child: Text('Index: $i Overflow'),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -42,16 +56,12 @@ class _MyAppState extends State<MyApp> {
       } else {
         tempItems.add(Container(
           height: 100,
-          // child: Image(image: AssetImage('assets/images/bmw/driver1.jpg'),),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Image(image: AssetImage('assets/images/bmw/driver1.jpg'),),
             ],
           ),
-          decoration:
-            BoxDecoration(
-            ),
         ));
       }
     }
@@ -83,15 +93,22 @@ class _MyAppState extends State<MyApp> {
               // ),
               Container(
                 height: 190,
+                // height: 120,
                 child: SwiperWidget(
                   itemWidth: 200,
                   itemMargin: 20,
                   items: tempItems,
+                  contentBottomMargin: 20.0,
                   numbersOfItemsVisible: 3,
-                  preBottom: 30,
-                  preLeft: 30,
-                  nextBottom: 30,
-                  nextRight: 30,
+                  // preBottom: 30,
+                  // preLeft: 30,
+                  // nextBottom: 30,
+                  // nextRight: 30,
+                  buttonHeight: 190,
+                  buttonWidth: 80,
+                  // buttonHeight: 120,
+                  preButton: ButtonPre1(),
+                  nextButton: ButtonNext1(),
                 ),
               ),
               Expanded(

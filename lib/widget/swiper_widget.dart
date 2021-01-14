@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lutoi/widget/buttons/button_wrap.dart';
 
 class SwiperWidget extends StatefulWidget {
   final double itemWidth;
   final double itemMargin;
+  final double contentBottomMargin;
   final int numbersOfItemsVisible;
   final Widget preButton;
   final Widget nextButton;
@@ -10,12 +12,15 @@ class SwiperWidget extends StatefulWidget {
   final double preBottom;
   final double nextRight;
   final double nextBottom;
+  final double buttonWidth;
+  final double buttonHeight;
   final List<Widget> items;
 
   SwiperWidget({
     Key key,
     @required this.itemWidth,
     this.itemMargin,
+    contentBottomMargin,
     this.numbersOfItemsVisible,
     this.preButton,
     this.nextButton,
@@ -23,10 +28,12 @@ class SwiperWidget extends StatefulWidget {
     this.nextRight,
     this.preBottom,
     this.preLeft,
+    this.buttonWidth,
+    this.buttonHeight,
     @required List<Widget> items,
-  })
-    : items = items ?? []
-    , super(key: key);
+  })  : items = items ?? [],
+        contentBottomMargin = contentBottomMargin ?? 0,
+        super(key: key);
   @override
   _SwiperWidgetState createState() => _SwiperWidgetState();
 }
@@ -48,15 +55,17 @@ class _SwiperWidgetState extends State<SwiperWidget> {
     prepareData();
   }
 
-  void prepareData() {
-  }
+  void prepareData() {}
 
   void calculateMargin() {
     setState(() {
-      if (widget.numbersOfItemsVisible == null || widget.numbersOfItemsVisible == 0) {
+      if (widget.numbersOfItemsVisible == null ||
+          widget.numbersOfItemsVisible == 0) {
         marginPerDirection = 0;
       } else {
-        marginPerDirection = (widgetSize.width - widget.itemWidth * widget.numbersOfItemsVisible) / 2;
+        marginPerDirection = (widgetSize.width -
+                widget.itemWidth * widget.numbersOfItemsVisible) /
+            2;
       }
     });
   }
@@ -102,54 +111,56 @@ class _SwiperWidgetState extends State<SwiperWidget> {
       });
     });
     return Stack(
-        children: <Widget>[
-    Container(
-      margin: EdgeInsets.only(left: marginPerDirection, right: marginPerDirection),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        controller: _controller,
-        itemCount: widget.items.length,
-        itemExtent: widget.itemWidth,
-        itemBuilder: (context, index) {
-          return OverflowBox(
-                      child: Container(
-                        height: 100,
-              margin: EdgeInsets.only(right: index == widget.items.length - 1 ? 0 : widget.itemMargin),
-              child: widget.items[index],
-            ),
-          );
-        },
-      ),
-    ),
-    isBeginned
-        ? SizedBox()
-        : Positioned(
-            // top: widgetSize != null ? widgetSize.height / 2 : 0,
-            bottom: widget.preBottom ?? 0,
-            left: widget.preLeft ?? 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                child: Icon(Icons.arrow_left),
-                onPressed: _movePre,
-              ),
-            ),
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(
+              left: marginPerDirection,
+              right: marginPerDirection,
+              bottom: widget.contentBottomMargin),
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            controller: _controller,
+            itemCount: widget.items.length,
+            itemExtent: widget.itemWidth,
+            itemBuilder: (context, index) {
+              return OverflowBox(
+                child: Container(
+                  height: 100,
+                  margin: EdgeInsets.only(
+                      right: index == widget.items.length - 1
+                          ? 0
+                          : widget.itemMargin),
+                  child: widget.items[index],
+                ),
+              );
+            },
           ),
-    isEnded
-        ? SizedBox()
-        : Positioned(
-            // top: widgetSize != null ? widgetSize.height / 2 : 0,
-            bottom: widget.nextBottom ?? 0,
-            right: widget.nextRight ?? 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                child: Icon(Icons.arrow_right),
-                onPressed: _moveNext,
+        ),
+        isBeginned
+            ? SizedBox()
+            : Positioned(
+                bottom: widget.preBottom ?? 0,
+                left: widget.preLeft ?? 0,
+                child: ButtonWrap(
+                  width: widget.buttonWidth,
+                  height: widget.buttonHeight,
+                  button: widget.preButton,
+                  pressed: _movePre,
+                ),
               ),
-            ),
-          ),
-        ],
-      );
+        isEnded
+            ? SizedBox()
+            : Positioned(
+                bottom: widget.nextBottom ?? 0,
+                right: widget.nextRight ?? 0,
+                child: ButtonWrap(
+                  width: widget.buttonWidth,
+                  height: widget.buttonHeight,
+                  button: widget.nextButton,
+                  pressed: _moveNext,
+                ),
+              ),
+      ],
+    );
   }
 }
