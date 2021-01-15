@@ -98,19 +98,20 @@ class _MyAppState extends State<MyApp> {
               // ),
               // accessories
               Container(
-                height: 190,
+                height: 200,
+                width: 200,
                 // height: 120,
                 child: SwiperWidget(
                   itemWidth: 200,
                   itemMargin: 20.0,
                   items: tempItems,
                   // contentBottomMargin: 20.0,
-                  // numbersOfItemsVisible: 3,
+                  numbersOfItemsVisible: 1,
                   // preBottom: 30,
                   // preLeft: 30,
                   // nextBottom: 30,
                   // nextRight: 30,
-                  buttonHeight: 190,
+                  buttonHeight: 200,
                   buttonWidth: 80,
                   // buttonHeight: 120,
                   preButton: ButtonPre1(),

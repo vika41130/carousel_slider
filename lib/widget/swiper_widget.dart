@@ -17,6 +17,7 @@ class SwiperWidget extends StatefulWidget {
   final List<Widget> items; // list of Widgets to be shown
   final Function scroll; // output current index being actived
 
+  // example
   // popup
   // Expanded(
   //   child: SwiperWidget(
@@ -111,7 +112,7 @@ class _SwiperWidgetState extends State<SwiperWidget> {
       } else {
         marginPerDirection = (widgetSize.width -
                 widget.itemWidth * widget.numbersOfItemsVisible) /
-            2;
+            2.0;
       }
     });
   }
