@@ -40,7 +40,8 @@ class _MyAppState extends State<MyApp> {
           // height: 150,
           // child: Text('Index: $i Overflow'),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            // mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(image: AssetImage('assets/images/bmw/driver1.jpg'),),
               Text('Index: $i Overflow'),
@@ -57,9 +58,11 @@ class _MyAppState extends State<MyApp> {
         tempItems.add(Container(
           height: 100,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            // mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(image: AssetImage('assets/images/bmw/driver1.jpg'),),
+              Text('Index: $i'),
             ],
           ),
         ));
@@ -96,10 +99,10 @@ class _MyAppState extends State<MyApp> {
                 // height: 120,
                 child: SwiperWidget(
                   itemWidth: 200,
-                  itemMargin: 20,
+                  itemMargin: 20.0,
                   items: tempItems,
-                  contentBottomMargin: 20.0,
-                  numbersOfItemsVisible: 3,
+                  // contentBottomMargin: 20.0,
+                  // numbersOfItemsVisible: 3,
                   // preBottom: 30,
                   // preLeft: 30,
                   // nextBottom: 30,
