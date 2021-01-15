@@ -2,23 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:lutoi/widget/buttons/button_wrap.dart';
 
 class SwiperWidget extends StatefulWidget {
-  final double itemWidth; // width of each item
-  final double itemMargin; // margin between items
-  final double contentBottomMargin; // margin from bottom
-  final int numbersOfItemsVisible; // numbers of item to be visible
-  final Widget preButton; // UI for previous button
-  final Widget nextButton; // UI for next button
-  final double preLeft; // left position for previous button
-  final double preBottom; // bottom position for previous button
-  final double nextRight; // right position for next button
-  final double nextBottom; // bottom position for next button
-  final double buttonWidth; // width for previous/next button
-  final double buttonHeight; // height for previous/next button
-  final List<Widget> items; // list of Widgets to be shown
-  final Function scroll; // output current index being actived
+  /// width of each item
+  final double itemWidth;
+  /// margin between items
+  final double spaceBetweenItems;
+  /// margin content from bottom
+  final double contentBottomMargin;
+  /// numbers of item to be visible
+  final int numbersOfItemsVisible;
+  /// UI for previous button
+  final Widget preButton;
+  /// UI for next button
+  final Widget nextButton;
+  /// left position for previous button
+  final double preLeft;
+  /// bottom position for previous button
+  final double preBottom;
+  /// right position for next button
+  final double nextRight;
+  /// bottom position for next button
+  final double nextBottom;
+  /// width for previous/next button
+  final double buttonWidth;
+  /// height for previous/next button
+  final double buttonHeight;
+  /// list of Widgets to be shown
+  final List<Widget> items;
+  /// output current index being actived
+  final Function scroll;
 
-  // example
-  // popup
+  // Expanded
   // Expanded(
   //   child: SwiperWidget(
   //     itemWidth: 200,
@@ -35,25 +48,18 @@ class SwiperWidget extends StatefulWidget {
   //     },
   //   ),
   // ),
-  // accessories
+  // Container
   // Container(
-  //   height: 190,
-  //   // height: 120,
+  //   height: 200,
+  //   width: 200,
   //   child: SwiperWidget(
   //     itemWidth: 200,
   //     itemMargin: 20.0,
   //     items: tempItems,
-  //     // contentBottomMargin: 20.0,
-  //     // numbersOfItemsVisible: 3,
-  //     // preBottom: 30,
-  //     // preLeft: 30,
-  //     // nextBottom: 30,
-  //     // nextRight: 30,
-  //     buttonHeight: 190,
-  //     buttonWidth: 80,
-  //     // buttonHeight: 120,
-  //     preButton: ButtonPre1(),
-  //     nextButton: ButtonNext1(),
+  //     numbersOfItemsVisible: 1,
+  //     buttonWidth: 40,
+  //     preButton: ButtonPre2(),
+  //     nextButton: ButtonNext2(),
   //   ),
   // ),
 
@@ -75,7 +81,7 @@ class SwiperWidget extends StatefulWidget {
     @required List<Widget> items,
   })  : items = items ?? [],
         contentBottomMargin = contentBottomMargin ?? 0.0,
-        itemMargin = itemMargin ?? 0.0,
+        spaceBetweenItems = itemMargin ?? 0.0,
         super(key: key);
   @override
   _SwiperWidgetState createState() => _SwiperWidgetState();
@@ -212,7 +218,7 @@ class _SwiperWidgetState extends State<SwiperWidget> {
                       margin: EdgeInsets.only(
                           right: index == widget.items.length - 1
                               ? 0.0
-                              : widget.itemMargin),
+                              : widget.spaceBetweenItems),
                       child: widget.items[index],
                     );
                   },
@@ -223,24 +229,22 @@ class _SwiperWidgetState extends State<SwiperWidget> {
         ),
         isBeginned
             ? SizedBox()
-            : Positioned(
-                bottom: widget.preBottom ?? 0,
-                left: widget.preLeft ?? 0,
+            : Align(
+                alignment: Alignment.centerLeft,
                 child: ButtonWrap(
-                  width: widget.buttonWidth,
-                  height: widget.buttonHeight,
+                  width: widget.buttonWidth ?? (widgetSize != null ? widgetSize.width : null),
+                  height: widget.buttonHeight ?? (widgetSize != null ? widgetSize.height : null),
                   button: widget.preButton,
                   pressed: _movePre,
                 ),
               ),
         isEnded
             ? SizedBox()
-            : Positioned(
-                bottom: widget.nextBottom ?? 0,
-                right: widget.nextRight ?? 0,
+            : Align(
+                alignment: Alignment.centerRight,
                 child: ButtonWrap(
-                  width: widget.buttonWidth,
-                  height: widget.buttonHeight,
+                  width: widget.buttonWidth ?? (widgetSize != null ? widgetSize.width : null),
+                  height: widget.buttonHeight ?? (widgetSize != null ? widgetSize.height : null),
                   button: widget.nextButton,
                   pressed: _moveNext,
                 ),

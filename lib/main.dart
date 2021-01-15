@@ -74,12 +74,12 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: Text(title),
           ),
-          body: Column(
+          body: Stack(
             children: [
               Container(
                 height: 140,
               ),
-              // popup
+              // Expanded
               // Expanded(
               //   child: SwiperWidget(
               //     itemWidth: 200,
@@ -96,31 +96,23 @@ class _MyAppState extends State<MyApp> {
               //     },
               //   ),
               // ),
-              // accessories
+              // Container
               Container(
                 height: 200,
                 width: 200,
-                // height: 120,
                 child: SwiperWidget(
                   itemWidth: 200,
                   itemMargin: 20.0,
                   items: tempItems,
-                  // contentBottomMargin: 20.0,
                   numbersOfItemsVisible: 1,
-                  // preBottom: 30,
-                  // preLeft: 30,
-                  // nextBottom: 30,
-                  // nextRight: 30,
-                  buttonHeight: 200,
-                  buttonWidth: 80,
-                  // buttonHeight: 120,
-                  preButton: ButtonPre1(),
-                  nextButton: ButtonNext1(),
+                  buttonWidth: 40,
+                  preButton: ButtonPre2(),
+                  nextButton: ButtonNext2(),
                 ),
               ),
-              Expanded(
-                child: Text('bottom bar'),
-              ),
+              // Expanded(
+              //   child: Text('bottom bar'),
+              // ),
             ],
           )),
     );
