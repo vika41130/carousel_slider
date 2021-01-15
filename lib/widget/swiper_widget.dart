@@ -2,19 +2,59 @@ import 'package:flutter/material.dart';
 import 'package:lutoi/widget/buttons/button_wrap.dart';
 
 class SwiperWidget extends StatefulWidget {
-  final double itemWidth;
-  final double itemMargin;
-  final double contentBottomMargin;
-  final int numbersOfItemsVisible;
-  final Widget preButton;
-  final Widget nextButton;
-  final double preLeft;
-  final double preBottom;
-  final double nextRight;
-  final double nextBottom;
-  final double buttonWidth;
-  final double buttonHeight;
-  final List<Widget> items;
+  final double itemWidth; // width of each item
+  final double itemMargin; // margin between items
+  final double contentBottomMargin; // margin from bottom
+  final int numbersOfItemsVisible; // numbers of item to be visible
+  final Widget preButton; // UI for previous button
+  final Widget nextButton; // UI for next button
+  final double preLeft; // left position for previous button
+  final double preBottom; // bottom position for previous button
+  final double nextRight; // right position for next button
+  final double nextBottom; // bottom position for next button
+  final double buttonWidth; // width for previous/next button
+  final double buttonHeight; // height for previous/next button
+  final List<Widget> items; // list of Widgets to be shown
+  final Function scroll; // output current index being actived
+
+  // popup
+  // Expanded(
+  //   child: SwiperWidget(
+  //     itemWidth: 200,
+  //     items: tempItems,
+  //     numbersOfItemsVisible: 1,
+  //     preLeft: 10.0,
+  //     nextRight: 10.0,
+  //     buttonHeight: 190,
+  //     buttonWidth: 80,
+  //     preButton: ButtonPre2(),
+  //     nextButton: ButtonNext2(),
+  //     scroll: (int activedIdx) {
+  //       print('--------------activedIdx: $activedIdx');
+  //     },
+  //   ),
+  // ),
+  // accessories
+  // Container(
+  //   height: 190,
+  //   // height: 120,
+  //   child: SwiperWidget(
+  //     itemWidth: 200,
+  //     itemMargin: 20.0,
+  //     items: tempItems,
+  //     // contentBottomMargin: 20.0,
+  //     // numbersOfItemsVisible: 3,
+  //     // preBottom: 30,
+  //     // preLeft: 30,
+  //     // nextBottom: 30,
+  //     // nextRight: 30,
+  //     buttonHeight: 190,
+  //     buttonWidth: 80,
+  //     // buttonHeight: 120,
+  //     preButton: ButtonPre1(),
+  //     nextButton: ButtonNext1(),
+  //   ),
+  // ),
 
   SwiperWidget({
     Key key,
@@ -30,6 +70,7 @@ class SwiperWidget extends StatefulWidget {
     this.preLeft,
     this.buttonWidth,
     this.buttonHeight,
+    this.scroll,
     @required List<Widget> items,
   })  : items = items ?? [],
         contentBottomMargin = contentBottomMargin ?? 0.0,
@@ -45,7 +86,9 @@ class _SwiperWidgetState extends State<SwiperWidget> {
   bool isEnded = false;
   double marginPerDirection = 0.0;
   Size widgetSize;
-  int currentIndex = 20;
+  int activedIndex = 0;
+  double unit = 0;
+  int selectedIndex = 0; // use to scroll back again when widget got resize, element item need to output select event
 
   @override
   void initState() {
@@ -54,6 +97,7 @@ class _SwiperWidgetState extends State<SwiperWidget> {
       _scrollListener();
     });
     super.initState();
+    unit = widget.itemWidth / 2;
     prepareData();
   }
 
@@ -72,12 +116,38 @@ class _SwiperWidgetState extends State<SwiperWidget> {
     });
   }
 
+  // only for one item per view
+  _calculateCurrentIndex(double offset) {
+    if (widget.scroll == null) {
+      return;
+    }
+    for (var i = 0; i < widget.items.length; i++) {
+      if (_controller.offset <= (2 * i + 1) * unit) {
+        setState(() {
+          activedIndex = i;
+          widget.scroll.call(activedIndex);
+        });
+        break;
+      }
+      if ((2 * i + 1) * unit < _controller.offset &&
+          _controller.offset <= (2 * i + 1) * unit) {
+        setState(() {
+          activedIndex = i;
+          widget.scroll.call(activedIndex);
+          return;
+        });
+        break;
+      }
+    }
+    print('---------------------------currentIndex: $activedIndex');
+  }
+
   _scrollListener() {
-    // print('------------------reset_scrollListener run');
     setState(() {
       isBeginned = false;
       isEnded = false;
     });
+    _calculateCurrentIndex(_controller.offset);
     if (_controller.offset >= _controller.position.maxScrollExtent &&
         !_controller.position.outOfRange) {
       setState(() {
@@ -93,7 +163,6 @@ class _SwiperWidgetState extends State<SwiperWidget> {
   }
 
   _movePre() {
-    // _controller.jumpTo(pixelsToMove);
     _controller.animateTo(_controller.offset - widget.itemWidth,
         curve: Curves.linear, duration: Duration(milliseconds: 500));
   }
@@ -103,10 +172,9 @@ class _SwiperWidgetState extends State<SwiperWidget> {
         curve: Curves.linear, duration: Duration(milliseconds: 500));
   }
 
-  _animateTo() {
-    // _controller.animateTo(_controller.offset + widget.itemWidth * currentIndex,
-    _controller.animateTo(widget.itemWidth * currentIndex,
-        curve: Curves.linear, duration: Duration(milliseconds: 500));
+  // use to scroll back again to selectedIndex item
+  _jumpTo() {
+    _controller.jumpTo(widget.itemWidth * selectedIndex);
   }
 
   @override
@@ -114,7 +182,7 @@ class _SwiperWidgetState extends State<SwiperWidget> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
         if (widgetSize != null && widgetSize.width != context.size.width) {
-          _animateTo();
+          _jumpTo();
         }
         widgetSize = context.size;
         // print('------------------------------widgetSize width-height: ${widgetSize.width}-${widgetSize.height}');
@@ -139,15 +207,12 @@ class _SwiperWidgetState extends State<SwiperWidget> {
                   itemCount: widget.items.length,
                   itemExtent: widget.itemWidth,
                   itemBuilder: (context, index) {
-                    return OverflowBox(
-                      child: Container(
-                        height: 100,
-                        margin: EdgeInsets.only(
-                            right: index == widget.items.length - 1
-                                ? 0.0
-                                : widget.itemMargin),
-                        child: widget.items[index],
-                      ),
+                    return Container(
+                      margin: EdgeInsets.only(
+                          right: index == widget.items.length - 1
+                              ? 0.0
+                              : widget.itemMargin),
+                      child: widget.items[index],
                     );
                   },
                 ),

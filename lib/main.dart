@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lutoi/widget/buttons/button_next_1.dart';
+import 'package:lutoi/widget/buttons/button_next_2.dart';
 import 'package:lutoi/widget/buttons/button_pre_1.dart';
+import 'package:lutoi/widget/buttons/button_pre_2.dart';
 import 'package:lutoi/widget/swiper_widget.dart';
 
 void main() {
@@ -37,8 +39,6 @@ class _MyAppState extends State<MyApp> {
     //     ));
       if (i == 1 || i == 3) {
         tempItems.add(Container(
-          // height: 150,
-          // child: Text('Index: $i Overflow'),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -50,18 +50,15 @@ class _MyAppState extends State<MyApp> {
           ),
           decoration:
               BoxDecoration(
-              // border: Border.all(color: Colors.black, width: 2),
               color: Colors.blue,
             ),
         ));
       } else {
         tempItems.add(Container(
-          height: 100,
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image(image: AssetImage('assets/images/bmw/driver1.jpg'),),
+              Image(image: AssetImage('assets/images/bmw/driver1.jpg'), width: 200,),
               Text('Index: $i'),
             ],
           ),
@@ -82,18 +79,24 @@ class _MyAppState extends State<MyApp> {
               Container(
                 height: 140,
               ),
+              // popup
               // Expanded(
               //   child: SwiperWidget(
               //     itemWidth: 200,
-              //     itemMargin: 20,
               //     items: tempItems,
-              //     numbersOfItemsVisible: 3,
-              //     preBottom: 10,
-              //     preLeft: 10,
-              //     nextBottom: 10,
-              //     nextRight: 10,
+              //     numbersOfItemsVisible: 1,
+              //     preLeft: 10.0,
+              //     nextRight: 10.0,
+              //     buttonHeight: 190,
+              //     buttonWidth: 80,
+              //     preButton: ButtonPre2(),
+              //     nextButton: ButtonNext2(),
+              //     scroll: (int activedIdx) {
+              //       print('--------------activedIdx: $activedIdx');
+              //     },
               //   ),
               // ),
+              // accessories
               Container(
                 height: 190,
                 // height: 120,
