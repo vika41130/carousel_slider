@@ -17,8 +17,8 @@ class ButtonWrap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? 0,
-      height: height ?? 0,
+      width: width ?? null,
+      height: height ?? null,
       child: InkWell(
         child: button,
         onTap: () {
