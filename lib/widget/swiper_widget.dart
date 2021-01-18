@@ -4,70 +4,51 @@ import 'package:lutoi/widget/buttons/button_wrap.dart';
 class SwiperWidget extends StatefulWidget {
   /// width of each item
   final double itemWidth;
+
   /// margin between items
   final double spaceBetweenItems;
-  /// margin content from bottom
-  final double contentBottomMargin;
+
+  ///content heigh
+  final double contentHeight;
+
   /// numbers of item to be visible
   final int numbersOfItemsVisible;
+
   /// UI for previous button
   final Widget preButton;
+
   /// UI for next button
   final Widget nextButton;
+
   /// left position for previous button
   final double preLeft;
+
   /// bottom position for previous button
   final double preBottom;
+
   /// right position for next button
   final double nextRight;
+
   /// bottom position for next button
   final double nextBottom;
+
   /// width for previous/next button
   final double buttonWidth;
+
   /// height for previous/next button
   final double buttonHeight;
+
   /// list of Widgets to be shown
   final List<Widget> items;
+
   /// output current index being actived
   final Function scroll;
-
-  // Expanded
-  // Expanded(
-  //   child: SwiperWidget(
-  //     itemWidth: 200,
-  //     items: tempItems,
-  //     numbersOfItemsVisible: 1,
-  //     preLeft: 10.0,
-  //     nextRight: 10.0,
-  //     buttonHeight: 190,
-  //     buttonWidth: 80,
-  //     preButton: ButtonPre2(),
-  //     nextButton: ButtonNext2(),
-  //     scroll: (int activedIdx) {
-  //       print('--------------activedIdx: $activedIdx');
-  //     },
-  //   ),
-  // ),
-  // Container
-  // Container(
-  //   height: 200,
-  //   width: 200,
-  //   child: SwiperWidget(
-  //     itemWidth: 200,
-  //     itemMargin: 20.0,
-  //     items: tempItems,
-  //     numbersOfItemsVisible: 1,
-  //     buttonWidth: 40,
-  //     preButton: ButtonPre2(),
-  //     nextButton: ButtonNext2(),
-  //   ),
-  // ),
 
   SwiperWidget({
     Key key,
     @required this.itemWidth,
     itemMargin,
-    contentBottomMargin,
+    this.contentHeight,
     this.numbersOfItemsVisible,
     this.preButton,
     this.nextButton,
@@ -80,7 +61,6 @@ class SwiperWidget extends StatefulWidget {
     this.scroll,
     @required List<Widget> items,
   })  : items = items ?? [],
-        contentBottomMargin = contentBottomMargin ?? 0.0,
         spaceBetweenItems = itemMargin ?? 0.0,
         super(key: key);
   @override
@@ -95,7 +75,8 @@ class _SwiperWidgetState extends State<SwiperWidget> {
   Size widgetSize;
   int activedIndex = 0;
   double unit = 0;
-  int selectedIndex = 0; // use to scroll back again when widget got resize, element item need to output select event
+  int selectedIndex =
+      0; // use to scroll back again when widget got resize, element item need to output select event
 
   @override
   void initState() {
@@ -198,57 +179,61 @@ class _SwiperWidgetState extends State<SwiperWidget> {
     });
     return Stack(
       children: <Widget>[
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: marginPerDirection ?? 0,
-                    right: marginPerDirection ?? 0,
-                    bottom: widget.contentBottomMargin),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  controller: _controller,
-                  itemCount: widget.items.length,
-                  itemExtent: widget.itemWidth,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.only(
-                          right: index == widget.items.length - 1
-                              ? 0.0
-                              : widget.spaceBetweenItems),
-                      child: widget.items[index],
-                    );
-                  },
-                ),
-              ),
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            height: widget.contentHeight ?? null,
+            margin: EdgeInsets.only(
+              left: marginPerDirection ?? 0,
+              right: marginPerDirection ?? 0,
             ),
-          ],
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              controller: _controller,
+              itemCount: widget.items.length,
+              itemExtent: widget.itemWidth,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.only(
+                      right: index == widget.items.length - 1
+                          ? 0.0
+                          : widget.spaceBetweenItems),
+                  child: widget.items[index],
+                );
+              },
+            ),
+          ),
         ),
         isBeginned
             ? SizedBox()
-            : Align(
-                alignment: Alignment.centerLeft,
-                child: ButtonWrap(
-                  width: widget.buttonWidth ?? (widgetSize != null ? widgetSize.width : null),
-                  height: widget.buttonHeight ?? (widgetSize != null ? widgetSize.height : null),
-                  button: widget.preButton,
-                  pressed: _movePre,
-                ),
-              ),
+            : widget.preButton != null
+                ? Align(
+                    alignment: Alignment.centerLeft,
+                    child: ButtonWrap(
+                      width: widget.buttonWidth ??
+                          (widgetSize != null ? widgetSize.width : null),
+                      height: widget.buttonHeight ??
+                          (widgetSize != null ? widgetSize.height : null),
+                      button: widget.preButton,
+                      pressed: _movePre,
+                    ),
+                  )
+                : SizedBox(),
         isEnded
             ? SizedBox()
-            : Align(
-                alignment: Alignment.centerRight,
-                child: ButtonWrap(
-                  width: widget.buttonWidth ?? (widgetSize != null ? widgetSize.width : null),
-                  height: widget.buttonHeight ?? (widgetSize != null ? widgetSize.height : null),
-                  button: widget.nextButton,
-                  pressed: _moveNext,
-                ),
-              ),
+            : widget.nextButton != null
+                ? Align(
+                    alignment: Alignment.centerRight,
+                    child: ButtonWrap(
+                      width: widget.buttonWidth ??
+                          (widgetSize != null ? widgetSize.width : null),
+                      height: widget.buttonHeight ??
+                          (widgetSize != null ? widgetSize.height : null),
+                      button: widget.nextButton,
+                      pressed: _moveNext,
+                    ),
+                  )
+                : SizedBox(),
       ],
     );
   }
