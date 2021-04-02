@@ -19,37 +19,8 @@ class MyApp extends StatelessWidget {
           title: Text(title),
         ),
         body: SafeArea(
-          child: Container(
-            width: double.infinity,
-            child: Stack(
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          // flex: 1,
-                          // fit: FlexFit.tight,
-                          child: Container(
-                            padding: EdgeInsets.only(top: 20, bottom: 20),
-                            child: Text(
-                              'Development',
-                              style: TextStyle(
-                                fontSize: 50,
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(bottom: BorderSide(color: Colors.black, width: 2),),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
+          child: Center(
+            child: Text('Development', style: TextStyle(fontSize: 40),)
           ),
         ),
       ),
